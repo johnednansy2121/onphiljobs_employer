@@ -1,0 +1,48 @@
+.card {
+    -webkit-appearance: none;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+}
+.card-body {
+    // min-height: 250px;
+    // max-height: 350px
+}
+$bounce-color: rgba(158, 157, 157, 0.651);
+$image-size: 140px;
+
+.avatar {
+	img.user {
+		height: $image-size;
+		width: $image-size;
+        border: 2px solid rgba(158, 157, 157, 0.651) !important;
+		border-radius: 50%;
+  }
+}
+.card-title {
+    color: #676767;
+    margin: auto 0;
+    font-size: 1.5rem;
+}
+.subscription {
+    color: #ffffff;
+    padding: 1px 5px;
+    border-radius: 5px;
+}
+.user__job {
+    color: #959595;
+}
+.tags__display {
+    display: inline-flex;
+    padding-right:8px;
+    color: #959595;
+}
+::ng-deep .card-columns .card  {
+    margin-top: 5px !important;
+}
+@media (max-width:991px)  {
+    .avatar {
+        text-align: center;
+        padding: 0px !important;
+    }
+}

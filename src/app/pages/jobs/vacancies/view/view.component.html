@@ -1,0 +1,387 @@
+<div class="content__inner">
+  <header class="content__title">
+    <h1>{{ pageTitle }}</h1>
+    <small>{{ pageSubTitle }}
+    </small>
+    <div class="actions">
+        <a class="btn back_btn " [routerLink]="'/vacancies'"><i class="fa fa-chevron-left"></i> Back</a>
+    </div>
+  </header>
+
+  <div class="card">
+
+    <div class="card-header">
+      <div class="row">
+        <div class="col-12 col-lg-12">
+          <div class="row no-gutters">
+            <h4>{{job.title}}</h4>
+            <div class="ml-auto">
+                <span class="badge badge-pill badge-success " *ngIf="job.status === 'PUBLISHED'">Live</span>
+                <span class="badge badge-pill badge-warning " *ngIf="job.status === 'DRAFT'">Draft</span>
+                <span class="badge badge-pill badge-danger " *ngIf="job.status === 'UNLISTED'">Archived</span>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-12 col-lg-10 px-0">
+              <p class="mb-0">{{job.subtitle}}</p>
+              <p *ngIf="job.premium.isFeatured" class="mb-0 content__title__text">Featured</p>
+            </div>
+            
+            <div class="col-12 col-lg-2 px-0 mt-auto">
+              <a routerLink="{{'/vacancies/edit/' + _id}}" class=" btn btn-primary float-right ">Edit Job</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-body">
+
+      <tabset>
+        <!-- <tab heading="Invited (3)">
+          <div *ngTemplateOutlet="invitedTable"></div>
+        </tab> -->
+        <tab heading="Applicants ({{jobApplied.length}})">
+          <div *ngIf="jobApplied.length <= 0; else appliedTable">
+            <div class="empty-state-container">
+              <i class="fa fa-list-alt"></i>
+              <p>There are no new applicants.</p>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Considering ({{jobConsidering.length}})">
+          <div *ngIf="jobConsidering.length <= 0; else consideringTable">
+            <div class="empty-state-container">
+              <i class="fa fa-list-alt"></i>
+              <p>No one has been considered yet.</p>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Short List ({{jobShortList.length}})">
+          <div *ngIf="jobShortList.length <= 0; else shortListTable">
+            <div class="empty-state-container">
+              <i class="fa fa-list-alt"></i>
+              <p>No one has been short-listed yet.</p>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Withdrawn ({{jobWithdrawn.length}})">
+          <div *ngIf="jobWithdrawn.length <= 0; else withdrawnTable">
+            <div class="empty-state-container">
+              <i class="fa fa-list-alt"></i>
+              <p>No one has withdrawn yet.</p>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Declined ({{jobDeclined.length}})">
+          <div *ngIf="jobDeclined.length <= 0; else jobDeclinedTable">
+            <div class="empty-state-container">
+              <i class="fa fa-list-alt"></i>
+              <p>No one has been declined yet.</p>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="row todo">
+    <!-- Sections -->
+  <div class="col-md-7">
+    <div class="card">
+      <div class="card-body">
+          <h4 class="card-title content__title__text">Sections</h4>
+          <h6 class="card-subtitle">See all the sections of your vacancy</h6>
+          <div class="listview listview--bordered">
+
+              <div  *ngFor="let section of job.section; let i = index;" class="listview__item" >
+                  <div class="checkbox checkbox--char todo__item pl-1">
+                      <div class="listview__content">
+                          <div class="listview__heading content__title__text">{{ section.title }}</div>
+                      </div>
+                      <div class="">
+                          <span><i [innerHTML]="convertToHTML(section.description)"></i></span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- Details -->
+  <div class="col-md-5">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title content__title__text">Details</h4>
+            <h6 class="card-subtitle">See all the details of your vacancy</h6>
+            <div>
+              <ul class="icon-list">
+                <li>
+                    <i class="fa fa-handshake-o"></i> {{ job.details.commitment.type }}
+                </li>
+                <li>
+                  <i class="fa fa-money"></i> {{ job.details.salary.base }} <span *ngIf="job.details.salary.upper !== null">- {{ job.details.salary.upper }}</span>
+                  <strong> {{ job.details.salary.currency }}</strong> /  {{ job.details.salary.type }}
+                </li>
+                <li>
+                    <i class="fa fa-clock-o"></i> {{ job.details.commitment.duration.quantity }} {{ job.details.commitment.duration.unit }}
+                </li>
+                <li *ngIf="job.details.category !== null">
+                  <i class="fa fa-list-alt"></i> category
+                </li>
+
+                <li *ngIf="!job.details.isWorkFromHome">
+                  <i class="fa fa-map-marker"></i> {{ job.details.location.city }} {{ job.details.location.state }}, {{ job.details.location.country }}  {{ job.details.location.postalCode }}
+
+                </li>
+                <li *ngIf="job.details.isWorkFromHome">
+                    <i class="fa fa-map-marker"></i> Working from home
+
+                  </li>
+              </ul>
+            </div>
+
+            <div *ngIf="!job.details.isWorkFromHome" class="mapContainer my-2">
+                <agm-map style="height:100%"  [latitude]="lat" [longitude]="lng"  [disableDefaultUI]="false" [zoom]="zoom">
+                  <agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng" [markerDraggable]="false"
+                  ></agm-marker>
+                </agm-map>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+  <eco-fab-speed-dial class="btn--action" animationMode="scale">
+      <eco-fab-speed-dial-trigger>
+        <button tooltip="Update Status" placement="left" id="button-dropup" class=""  mat-fab color="primary" aria-label="Update Status">
+            <mat-icon>update</mat-icon></button>
+      </eco-fab-speed-dial-trigger>
+
+      <eco-fab-speed-dial-actions>
+          <button tooltip="Publish Job" placement="left" (click)="openModal(confirmationStatus, 'publish')" color="white" mat-mini-fab><mat-icon>publish</mat-icon></button>
+          <button tooltip="Draft Job" placement="left" (click)="openModal(confirmationStatus, 'draft')" color="white" mat-mini-fab><mat-icon>drafts</mat-icon></button>
+          <button tooltip="Unlist Job" placement="left" (click)="openModal(confirmationStatus, 'unlist')" color="white" mat-mini-fab><mat-icon>list</mat-icon></button>
+      </eco-fab-speed-dial-actions>
+  </eco-fab-speed-dial>
+
+  <ng-template #confirmationStatus>
+      <div class="modal-header">
+        <h4 class="modal-title pull-l eft">Confirmation</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Are you sure you wish to {{ statusUpdate }} this job?</p>
+        <div class="row no-gutters justify-content-center mt-1">
+          <button class="btn btn-danger mx-2 col-2" (click)="modalRef.hide()">No</button>
+          <button class="btn btn-primary mx-2 col-2" (click)="updateJobStatus()">Yes</button>
+        </div>
+      </div>
+  </ng-template>
+
+
+<ng-template #appliedTable>
+
+  <table class="table table-striped">
+    <thead class="text-center">
+      <tr>
+        <th >Date</th><th>Name</th><th>Membership</th><th>Status</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+    <tr *ngFor="let applicant of jobApplied; let i=index">
+      <td>{{applicant.metadata.dateCreated | date:'mediumDate'}}</td>
+      <td>{{applicant.applicant.firstName}} {{applicant.applicant.lastName}}</td>
+      <td>
+        <span *ngIf="!applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-dark">Free</span>
+        <span *ngIf="applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-success">Premium</span>
+      </td>
+      <td><span class="badge badge-pill" [ngClass]="{'badge-warning': applicant.status==='SHORTLIST', 
+        'badge-success': applicant.status === 'SUBMITTED', 'badge-danger': applicant.status === 'DECLINED',
+        'badge-info': applicant.status === 'CONSIDERING'}" > 
+        {{applicant.status}}</span></td>
+      
+      <td><div class="listview__actions task-more-actions">
+          <div class="btn-group" dropdown  placement="bottom right">
+              <button dropdownToggle type="button" class="btn"><i class="fas fa-ellipsis-v"
+                      aria-controls="dropdown-basic"></i></button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
+                  <li role="menuitem">
+                      <button class="dropdown-item" *ngIf="applicant.status !== 'CONSIDERING'" (click)="setAsConsidered(applicant._id,i,applicant, 'all applicants')">Mark as Considering</button>
+                  </li>
+                  <li role="menuitem">
+                      <button class="dropdown-item" *ngIf="applicant.status !== 'SHORTLIST'" (click)="setAsShortListed(applicant._id,i,applicant, 'all applicants')">Mark as Short listed</button>
+                  </li>
+                  <li role="menuitem">
+                      <button class="dropdown-item" *ngIf="applicant.status !== 'DECLINED'" (click)="setAsDeclined(applicant._id,i,applicant, 'all applicants')">Mark as Declined</button>
+                  </li>
+              </ul>
+          </div>
+      </div></td>
+    </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #shortListTable>
+
+  <table class="table table-striped">
+    <thead class="text-center">
+      <tr>
+        <th >Date</th><th>Name</th><th>Membership</th><th>Username</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+    <tr *ngFor="let applicant of jobShortList; let i=index">
+      <td>{{applicant.metadata.dateCreated | date:'mediumDate'}}</td>
+      <td>{{applicant.applicant.firstName}} {{applicant.applicant.lastName}}</td>
+      <td>
+        <span *ngIf="!applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-dark">Free</span>
+        <span *ngIf="applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-success">Premium</span>
+      </td>
+      <td><span class="badge badge-pill badge-warning curs_pointer" (click)="openPublicProfile(applicant.applicant.userName)">{{applicant.applicant.userName}}</span></td>
+
+      <td><div class="listview__actions task-more-actions">
+          <div class="btn-group" dropdown  placement="bottom right">
+              <button dropdownToggle type="button" class="btn"><i class="fas fa-ellipsis-v"
+                      aria-controls="dropdown-basic"></i></button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
+                  <!-- <li role="menuitem">
+                      <button class="dropdown-item">Mark as Rejected</button>
+                  </li> -->
+                  <li role="menuitem">
+                      <button class="dropdown-item" (click)="setAsConsidered(applicant._id,i, applicant, jobShortList)">Mark as Considering</button>
+                  </li>
+                  <li role="menuitem">
+                      <button class="dropdown-item" (click)="setAsDeclined(applicant._id,i,applicant, jobShortList)">Mark as Declined</button>
+                  </li>
+              </ul>
+          </div>
+      </div></td>
+    </tr>
+    </tbody>
+  </table>
+
+</ng-template>
+
+<ng-template #consideringTable>
+
+  <table class="table table-striped">
+    <thead class="text-center">
+      <tr>
+        <th >Date</th><th>Name</th><th>Membership</th><th>Username</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+    <tr *ngFor="let applicant of jobConsidering; let i=index">
+      <td>{{applicant.metadata.dateCreated | date:'mediumDate'}}</td>
+      <td>{{applicant.applicant.firstName}} {{applicant.applicant.lastName}}</td>
+      <td>
+        <span *ngIf="!applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-dark">Free</span>
+        <span *ngIf="applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-success">Premium</span>
+      </td>
+      <td><span class="badge badge-pill badge-warning curs_pointer" (click)="openPublicProfile(applicant.applicant.userName)">{{applicant.applicant.userName}}</span></td>
+
+      <td><div class="listview__actions task-more-actions">
+          <div class="btn-group" dropdown  placement="bottom right">
+              <button dropdownToggle type="button" class="btn"><i class="fas fa-ellipsis-v"
+                      aria-controls="dropdown-basic"></i></button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
+                  <li role="menuitem">
+                      <button class="dropdown-item" (click)="setAsShortListed(applicant._id,i,applicant, jobConsidering)">Mark as Short listed</button>
+                  </li>
+                  <li role="menuitem">
+                      <button class="dropdown-item" (click)="setAsDeclined(applicant._id,i,applicant, jobConsidering)">Mark as Declined</button>
+                  </li>
+              </ul>
+          </div>
+      </div></td>
+    </tr>
+    </tbody>
+  </table>
+
+</ng-template>
+
+<ng-template #withdrawnTable>
+
+  <table class="table table-striped">
+    <thead class="text-center">
+      <tr>
+        <th >Date</th><th>Name</th><th>Membership</th><th>Username</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+    <tr *ngFor="let applicant of jobWithdrawn; let i=index">
+      <td>{{applicant.metadata.dateCreated | date:'mediumDate'}}</td>
+      <td>{{applicant.applicant.firstName}} {{applicant.applicant.lastName}}</td>
+      <td>
+        <span *ngIf="!applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-dark">Free</span>
+        <span *ngIf="applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-success">Premium</span>
+      </td>
+      <td><span class="badge badge-pill badge-warning curs_pointer" (click)="openPublicProfile(applicant.applicant.userName)">{{applicant.applicant.userName}}</span></td>
+      <td>
+<!--        <div class="listview__actions task-more-actions">-->
+<!--          <div class="btn-group" dropdown  placement="bottom right">-->
+<!--              <button dropdownToggle type="button" class="btn"><i class="fas fa-ellipsis-v"-->
+<!--                      aria-controls="dropdown-basic"></i></button>-->
+<!--              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">-->
+<!--                  &lt;!&ndash; <li role="menuitem">-->
+<!--                      <button class="dropdown-item">Mark as Rejected</button>-->
+<!--                  </li> &ndash;&gt;-->
+<!--        &lt;!&ndash;                  <li role="menuitem">&ndash;&gt;-->
+<!--        &lt;!&ndash;                      <button class="dropdown-item" (click)="setAsConsidered(applicant._id,i,applicant, jobWithdrawn)">Mark as Considering</button>&ndash;&gt;-->
+<!--        &lt;!&ndash;                  </li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                  <li role="menuitem">&ndash;&gt;-->
+<!--        &lt;!&ndash;                      <button class="dropdown-item" (click)="setAsShortListed(applicant._id,i,applicant, jobWithdrawn)">Mark as Short listed</button>&ndash;&gt;-->
+<!--        &lt;!&ndash;                  </li>&ndash;&gt;-->
+<!--              </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</ng-template>
+
+<ng-template #jobDeclinedTable>
+
+  <table class="table table-striped">
+    <thead class="text-center">
+    <tr>
+      <th >Date</th><th>Name</th><th>Membership</th><th>Username</th><th>Actions</th>
+    </tr>
+    </thead>
+    <tbody class="text-center">
+    <tr *ngFor="let applicant of jobDeclined; let i=index">
+      <td>{{applicant.metadata.dateCreated | date:'mediumDate'}}</td>
+      <td>{{applicant.applicant.firstName}} {{applicant.applicant.lastName}}</td>
+      <td>
+        <span *ngIf="!applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-dark">Free</span>
+        <span *ngIf="applicant.applicant.premium.hasProSubscription" class="badge badge-pill badge-success">Premium</span>
+      </td>
+      <td><span class="badge badge-pill badge-warning curs_pointer" (click)="openPublicProfile(applicant.applicant.userName)">{{applicant.applicant.userName}}</span></td>
+
+      <td><div class="listview__actions task-more-actions">
+          <div class="btn-group" dropdown  placement="bottom right">
+              <button dropdownToggle type="button" class="btn"><i class="fas fa-ellipsis-v"
+                      aria-controls="dropdown-basic"></i></button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
+                  <li role="menuitem">
+                      <button class="dropdown-item" (click)="setAsConsidered(applicant._id,i,applicant, jobWithdrawn)">Mark as Considering</button>
+                  </li>
+                  <li role="menuitem">
+                      <button class="dropdown-item" (click)="setAsShortListed(applicant._id,i,applicant, jobWithdrawn)">Mark as Short listed</button>
+                  </li>
+              </ul>
+          </div>
+      </div></td>
+    </tr>
+    </tbody>
+  </table>
+
+</ng-template>

@@ -1,0 +1,30 @@
+<div class="row quick-stats" *ngIf="userSkills === undefined; else showUser">
+            <div *ngFor="let stat of quickStatsData" class="col-sm-6 col-md-3">
+                <div [ngClass]="['quick-stats__item bg-'+stat.color]">
+                    <div class="quick-stats__info">
+                        <h2>{{ stat.number }}</h2>
+                        <small>{{ stat.title }}</small>
+                    </div>
+            
+                    <div class="quick-stats__chart">
+                        <x-chartist [type]="type" [data]="stat.chart" [options]="options"> </x-chartist>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    <ng-template #showUser>
+        <div class="row quick-stats">
+            <div *ngFor="let user of userSkills" class="col-sm-6 col-md-3 pl-0 pr-2">
+                <div class="quick-stats__item content__item" [style.background]="user.color">
+                    <div class="quick-stats__chart text-white ml-0 mr-2">
+                        <i [class]="user.icon" ></i>
+                    </div>
+
+                    <div class="quick-stats__info my-auto">
+                        <h2>{{ user.number }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>

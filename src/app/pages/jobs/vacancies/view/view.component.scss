@@ -1,0 +1,45 @@
+.back_btn {
+    color: red !important;
+  }
+  #map {
+    height: 100%;
+  }
+  .mapContainer {
+    position: relative;
+    width: 100%;
+    height: 30vh;
+    margin: 0 auto;
+  }
+  .update_btn {
+      bottom: 0;
+  }
+  .content__inner:not(.content__inner--sm) {
+    max-width: 3000px !important;
+  }
+.btn--action {
+  box-shadow: none !important;
+}
+.ul__dropdown {
+  left: -87px !important;
+  bottom: -67px !important;
+}
+.curs_pointer {
+  cursor: pointer;
+}
+.empty-state-container {
+  width: 100%;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  i {
+      font-size: 7em;
+  }
+
+  a {
+      color: white;
+      width: 400px;
+  }
+}

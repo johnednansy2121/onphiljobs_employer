@@ -1,0 +1,24 @@
+.actions {
+    i {
+        -webkit-text-stroke: 1px #f3f3f3;
+    }
+}
+
+.content__container {
+    background: rgba(43, 42, 42, 0.397);
+    text-align: center;
+    p {
+        font-size: 1.3rem;
+    }
+}
+
+.gallery__view {
+    height: 40vh;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    p {
+        margin: auto;
+    }
+}

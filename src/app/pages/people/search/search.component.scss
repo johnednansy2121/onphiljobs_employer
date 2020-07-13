@@ -1,0 +1,65 @@
+@import "../../../../assets/scss/scss-imports";
+
+::ng-deep {
+    .mat-chip-remove {
+        background: none !important;
+        -webkit-appearance: none !important;
+    }
+    
+}
+.fa-trash {
+    font-size: 1.5rem;
+}
+.search_image {
+    width: 15vh !important;
+}
+.search__font__size {
+    font-size: 8rem;
+    -webkit-text-stroke: 2px white;
+}
+.select_container {
+    position: relative;
+    i {
+        position: absolute;
+        right: 5px;
+        top: 8px;
+    }
+}
+.listview {
+    padding: .5rem 1.5rem 0 !important;
+}
+.results__header {
+  padding: 2rem 1.5rem 0;
+  border-radius: $border-radius $border-radius 0 0;
+  margin-bottom: 1rem;
+  background-color: $gray-50;
+}
+.results__nav {
+  border: 0;
+}
+
+@media (max-width:801px)  { 
+    .card-columns {
+        column-count: 2 !important;
+    }
+}
+@media (max-width:481px)  {  
+     .card-columns {
+        column-count: 1 !important;
+    }
+
+    .check_list {
+        display: block !important;
+    }
+    .search__btn {
+        button {
+            width: 100% !important;
+            padding: 10px;
+        }
+    }
+    .nav {
+        a {
+            width: 100%;
+        }
+    }
+}

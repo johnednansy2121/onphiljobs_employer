@@ -1,0 +1,141 @@
+<div class="content__inner">
+    <header class="content__title">
+        <h1>{{ pageTitle }}</h1>
+        <small>{{ pageSubTitle }}
+        </small>
+    </header>
+
+    <div class="card results">
+
+        <div class="results__header">
+
+            <div class="check_list row no-gutters px-0 px-sm-0 px-md-3 px-lg-3 col-12 col-sm-12 col-md-11 col-lg-11 ml-auto mb-lg-2 mb-4">
+              <div class="col-lg-2 col-lg-offset-1 checkbox my-auto pt-3 pt-lg-0 px-0">
+                <input type="checkbox" [(ngModel)]="searchViewState.skill.visible" (ngModelChange)="toggleSearchCategory('skill', $event)" name="form-horizontal-radio-1" id="form-horizontal-checkbox-1">
+                <label class="checkbox__label" for="form-horizontal-checkbox-1">Skills</label>
+              </div>
+              <div class="col-lg-2 checkbox my-auto px-0  ">
+                <input type="checkbox" [(ngModel)]="searchViewState.experience.visible" (ngModelChange)="toggleSearchCategory('experience',$event)" name="form-horizontal-radio-2" id="form-horizontal-checkbox-2">
+                <label class="checkbox__label" for="form-horizontal-checkbox-2">Experience</label>
+              </div>
+              <div class="col-lg-2 checkbox my-auto px-0 ">
+                <input type="checkbox" [(ngModel)]="searchViewState.education.visible" (ngModelChange)="toggleSearchCategory('education',$event)" name="form-horizontal-radio-3" id="form-horizontal-checkbox-3">
+                <label class="checkbox__label" for="form-horizontal-checkbox-3">Education</label>
+              </div>
+              <div class="col-lg-2 checkbox my-auto px-0">
+                <input type="checkbox" [(ngModel)]="searchViewState.achievement.visible" (ngModelChange)="toggleSearchCategory('achievement',$event)" name="form-horizontal-radio-4" id="form-horizontal-checkbox-4">
+                <label class="checkbox__label" for="form-horizontal-checkbox-4">Achievement</label>
+              </div>
+              <div class="col-lg-2 checkbox my-auto px-0 ">
+                <input type="checkbox" [(ngModel)]="searchViewState.aboutMe.visible" (ngModelChange)="toggleSearchCategory('aboutMe',$event)" name="form-horizontal-radio-5" id="form-horizontal-checkbox-5">
+                <label class="checkbox__label" for="form-horizontal-checkbox-5">About Me</label>
+              </div>
+            </div>
+
+            <div *ngFor="let searchKey of searchQuery.tags | keyvalue">
+
+              <div class="row no-gutters mt-2" *ngIf="searchViewState[searchKey.key].visible">
+                <div class="col-12 col-sm-12 col-md-1 col-lg-1 text-left text-sm-left text-md-center text-lg-center my-auto">
+
+               <span class="content__title__text h6">{{searchViewState[searchKey.key].label}}</span>
+<!--                <mat-form-field>-->
+<!--                  <mat-label>Search In</mat-label>-->
+<!--                  <mat-select [(value)]="selectedTest">-->
+<!--                    <mat-option>None</mat-option>-->
+<!--                    <mat-option *ngFor="let so of avaliableSearchOptions" [value]="so.value">{{so.name}}</mat-option>-->
+<!--                  </mat-select>-->
+<!--                </mat-form-field>-->
+
+                </div>
+                <div class="col-12 col-sm-12 col-md-11 col-lg-11 ">
+                  <div class="row no-gutters col-12  px-0 px-sm-0 px-lg-3">
+                      <mat-form-field class="col-12" >
+                          <mat-chip-list #chipList aria-label="Enter your keywords">
+                              <mat-chip *ngFor="let tag of  searchQuery.tags[searchKey.key]" [selectable]="selectable" [removable]="removable"
+                                  (removed)="remove(tag, searchKey)">
+                                  {{tag}}
+                                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                              </mat-chip>
+                              <input #tagInput placeholder="Enter your keywords" [formControl]="tagCtrl" [matAutocomplete]="auto"
+                                  [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                  (matChipInputTokenEnd)="addChip($event, searchKey)">
+                          </mat-chip-list>
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, searchKey)">
+                              <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                                  {{tag}}
+                              </mat-option>
+                          </mat-autocomplete>
+                      </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+            <div class="row no-gutters mb-3">
+<!--              <div class="col-6 pull-left">-->
+<!--                <button class="btn bg-success text-white pull-left" (click)="addSearchQuery()"><i class="fa fa-plus"></i> Add Query</button>-->
+<!--              </div>-->
+              <div class="col-12 pull-right px-0 px-sm-0 px-lg-2">
+                <button class="btn content__background__theme text-white float-right col-12 col-sm-12 col-md-2 col-lg-2" (click)="searchButton()"><i
+                        class="fa fa-search"></i> Search</button>
+                
+                <button class="btn btn-outline-theme-grey float-right mt-2 mt-lg-0 mt-md-0 mt-sm-2 col-12 col-sm-12 col-md-2 col-lg-2 mr-0 mr-sm-0 mr-md-2 mr-lg-2" (click)="resetSearch()"> Reset</button>
+              </div>
+            </div>
+
+        </div>
+
+      <div class="listview listview--bordered listview--hover" *ngIf="searchResultTotal == 0">
+          <div class="p-5    m-auto text-center">
+            <!-- <img src="assets/svg/talent-search.svg"  alt="talent search" class="img-fluid search_image" > -->
+            <i class="fas fa-search search__font__size"></i>
+            <p class="mb-0 mt-2">It looks like theres no one here,</p>
+            <p>please try searching</p>
+          </div>
+            
+      </div>
+
+      <div class="listview listview--bordered listview--hover" *ngIf="searchResultTotal > 0">
+
+            <nav class="nav nav-tabs results__nav mt-5 col-lg-12">
+              <a class="text-center nav-link" [ngClass]="{active: activeTab === 'allUsers'}" (click)="tabSearch('allUsers')">All users ({{ searchResults.length }})</a>
+              <a class="text-center nav-link" [ngClass]="{active: activeTab === 'pro'}"  (click)="tabSearch('pro')">Premium ({{ getNumberList('pro') }})</a>
+              <a class="text-center nav-link" [ngClass]="{active: activeTab === 'interviewed'}"  (click)="tabSearch('interviewed')">Interviewed ({{ getNumberList('interviewed') }})</a>
+            </nav>
+
+            <div class="col-12 row no-gutters px-2 pb-2">
+                <!-- <div class="my-auto">
+                    <p class="my-auto">
+                        Results ({{filteredUsers.length}})
+                    </p>
+                </div> -->
+                <div class="ml-auto mt-0 mt-lg-0 ml-lg-auto row no-gutters">
+                    <div class="form-group mb-0 select_container">
+                      <mat-form-field>
+                        <mat-label>Sort By</mat-label>
+                        <mat-select [(value)]="searchQuery.orderBy" (selectionChange)="searchButton()">
+                          <mat-option *ngFor="let so of sortOptions" [value]="so.value">{{so.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <!--                        <ng-select-->
+<!--                            class="order__select"-->
+<!--                            [items]="ngSelectData"-->
+<!--                            bindLabel="name"-->
+<!--                            placeholder="Filters">-->
+<!--                        </ng-select>-->
+<!--                        <i class="fas fa-caret-down"></i>-->
+                    </div>
+                </div>
+            </div>
+            <div class="card-columns mb-3 px-2">
+                <usercard *ngFor="let user of filteredUsers" [user]="user"></usercard>
+            </div>
+
+            <mat-paginator (page)="changePage($event)" [pageSize]="searchQuery.pageSize" [length]="searchResultTotal" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

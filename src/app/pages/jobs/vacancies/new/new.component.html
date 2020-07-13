@@ -1,0 +1,277 @@
+<div class="content__inner">
+    <header class="content__title">
+        <h1>{{ pageTitle }}</h1>
+        <small>{{ pageSubTitle }}
+        </small>
+
+        <div class="actions">
+            <a class="btn back_btn " [routerLink]="'/vacancies'"><i class="fa fa-chevron-left"></i> Back</a>
+        </div>
+    </header>
+    <form [formGroup]="jobForm" >
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Job Information</h4>
+                <h4 class="card-subtitle">Enter the information for the job.</h4>
+                <div class="col-md-12 px-0">
+                    <div class="form-group">
+                        <label class="">Job Title</label>
+                        <input type="text" class="form-control" formControlName="title" placeholder="Enter your job title">
+                        <i class="form-group__bar"></i>
+                    </div>
+                </div>
+                <div class="col-md-12 pl-lg-0 pr-lg-1">
+                    <div class="form-group">
+                        <label class="">Job Subtitle</label>
+                        <textarea autosize class="form-control" formControlName="subtitle" placeholder="Enter your job subtitle"></textarea>
+                        <i class="form-group__bar"></i>
+                    </div>
+                </div>
+                <div class="listview__actions ml-auto">
+                    <div class="row no-gutters">
+                        <label class="pr-3">Featured</label>
+                        <div class="form-group pl-2" formArrayName="premium">
+                            <div class="toggle-switch">
+                                <input formControlName="isFeatured" type="checkbox" class="toggle-switch__checkbox">
+                                <i class="toggle-switch__helper"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="cl-12 col-md-6 px-0 pr-lg-4">
+                        <div class="form-group " >
+                            <label class="">Client</label>
+                            
+                            <ng-select formControlName="client" notFoundText="Please wait for the data" [items]="clientsItem" bindLabel="name" bindValue="name" placeholder="Select client" >
+                            </ng-select>
+                            <i class="form-group__bar"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Job Location</h4>
+                <h4 class="card-subtitle">Enter the location for the job.</h4>
+                <div>
+                    <div class="row no-gutters">
+                        <div class="col-md-3 px-0 mt-auto">
+                                <div class="form-group pb-2">
+                                        <div class="checkbox">
+                                        <input type="checkbox" id="gridCheck" (click)="setMap()">
+                                        <label class="checkbox__label" for="gridCheck">
+                                            Working from home
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="col-md-9 px-0" >
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input [disabled]="!showMap" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                                <i class="form-group__bar"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mapContainer">
+                    <div *ngIf="!showMap" class="google_map_disable" [@mapDisable]>
+                    </div>
+                    <agm-map style="height:100%" [disableDefaultUI]="false" [latitude]="lat" [longitude]="lng" [zoom]="zoom"   (mapClick)="mapClicked($event)">
+                            <agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng" [markerDraggable]="true"
+                            (dragEnd)="markerDragEnd($event)"></agm-marker>
+                        </agm-map>
+                </div>
+                
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Job Sections</h4>
+                <h4 class="card-subtitle">Enter the sections for the job.</h4>
+                <div class="row no-gutters">
+                    <div  formArrayName="section" *ngFor="let group of getFormControls.controls; let i = index" class="col-lg-12 py-3 px-0 job__sections__cards">
+                        <div class="card">
+                            <div class="card-body sections">
+                                <a class="curs_none" [formGroupName]="i">
+                                    <div class="col-md-12">
+                                        <div class="form-group ">
+                                            <label class="">Title</label>
+                                            <input type="text" class="form-control" formControlName="title" placeholder="Enter title">
+                                            <i class="form-group__bar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 ">
+                                        <label class="mb-3  ">Description</label>
+                                        <div class="form-group mb-0">
+                                            <quill-editor formControlName="description" rows="8"></quill-editor>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="notes__actions" data-demo-action="delete-listing" (click)="deleteRow(i)">
+                                    <i class="fa fa-trash"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-3 px-0 job__sections__cards">
+                        <div class=" p-3 card">
+                            <div class="card-body notes__item">
+                                <a class="add-container" (click)="addRow()">
+                                    <button class="btn"><i class="fa fa-plus"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" formArrayName="details">
+            <div class="card-body" formArrayName="salary">
+                <h4 class="card-title ">Job Salary</h4>
+                <h4 class="card-subtitle">Enter the details of the salary for the job.</h4>
+                <div class="col-md-3 col-12 col-sm-4 px-0" >
+                    <div class=" row no-gutters">
+                        <div class="form-group col-lg-12">
+                            <label class="">Salary Type</label>
+                            <ng-select [items]="salaryData" bindLabel="name" placeholder="Select salary type" formControlName="type">
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutters" *ngIf="detailsControl.value.salary.type ==='Range Salary'; else fixed">
+                    <div class="col-md-4">
+                        <div class=" row no-gutters">
+                            <div class="form-group col-lg-11">
+                                <label class="">Base</label>
+                                <input type="text" class="form-control" formControlName="base" placeholder="Enter base salary">
+                                <i class="form-group__bar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class=" row no-gutters">
+                            <div class="form-group col-lg-11">
+                                <label class="">Upper</label>
+                                <input type="text" class="form-control" formControlName="upper" placeholder="Enter upper salary">
+                            <i class="form-group__bar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class=" row no-gutters">
+                            <div class="form-group col-lg-11">
+                                <label class="">Currency</label>
+                                <input type="text" class="form-control" formControlName="currency" placeholder="Enter currency">
+                                <i class="form-group__bar"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #fixed>
+                    <div class="row no-gutters" *ngIf="detailsControl.value.salary.type !==''">
+                        <div class="col-md-6">
+                            <div class=" row no-gutters">
+                                    <div class="form-group col-lg-11">
+                                        <label class="">Base</label>
+                                        <input type="text" class="form-control" formControlName="base" placeholder="Enter base salary">
+                                        <i class="form-group__bar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class=" row no-gutters">
+                                <div class="form-group col-lg-11">
+                                    <label class="">Currency</label>
+                                    <input type="text" class="form-control" formControlName="currency" placeholder="Enter currency">
+                                    <i class="form-group__bar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body"><h4 class="card-title">Job Category <span class="h6 ml-2 content__title__text">Coming Soon</span></h4>
+            <h4 class="card-subtitle">Enter the category for the job.</h4>
+                <div class="row no-gutters" formArrayName="details">
+                    <div class="col-md-3">
+                        <div class=" row no-gutters">
+                            <div class="form-group col-12 pl-0">
+                                <label class="">Category Type</label>
+                                <input type="text" class="form-control" disabled>
+                                <i class="form-group__bar"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Job Status</h4>
+                <h4 class="card-subtitle">Enter the status for the job.</h4>
+                <div class="row no-gutters">
+                    <div class="col-md-3">
+                        <div class=" row no-gutters">
+                            <div class="form-group col-12 pl-0">
+                                <label class="">Status</label>
+                                <ng-select [items]="statusData" bindLabel="name" placeholder="Select status" formControlName="status">
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body" formArrayName="details">
+                <h4 class="card-title">Job Commitment</h4>
+                <h4 class="card-subtitle">Enter the commitment for the job.</h4>
+                <div class="row no-gutters" formArrayName="commitment">
+                    <div class="col-md-8">
+                        <div class=" row no-gutters">
+                                <div class="form-group col-12 pl-0">
+                                    <label class="">Type</label>
+                                    <ng-select [items]="commitmentTypeData" bindLabel="name" placeholder="Select status" formControlName="type">
+                                    </ng-select>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class=" row no-gutters pl-lg-3" formArrayName="duration">
+                                <div class="form-group col-11 pl-0 ">
+                                    <div class="row no-gutters">
+                                        <div class=" col-5 px-0 pr-lg-3">
+                                            <div class="form-group">
+                                                <label class="">Duration(quantity)</label>
+                                                <input class="form-control text-center"  type="number" formControlName="quantity" placeholder="Enter commitment type">
+                                                <i class="form-group__bar"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7">
+                                            <label class="">(unit)</label>
+                                            <ng-select [items]="unitData" bindLabel="name" placeholder="Select status" formControlName="unit">
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-12 pull-right px-0 px-sm-0 px-lg-2 pb-5 mb-3">
+        <button class="btn content__background__theme text-white float-right col-12 col-sm-12 col-md-2 col-lg-2" [disabled]="jobForm.invalid"
+           (click)="addJob()" >Add Job</button>
+
+        <button
+            class="btn btn-outline-theme-grey float-right mt-2 mt-lg-0 mt-md-0 mt-sm-2 col-12 col-sm-12 col-md-2 col-lg-2 mr-0 mr-sm-0 mr-md-2 mr-lg-2"
+            (click)="initializeForm()"> Reset</button>
+    </div>
+</div>
