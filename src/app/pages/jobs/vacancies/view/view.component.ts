@@ -57,7 +57,7 @@
         this.activateRoute.snapshot.data.jobAppliedData || this.activateRoute.snapshot.data.jobShortlistData ||
         this.activateRoute.snapshot.data.jobConsideringData || this.activateRoute.snapshot.data.jobWithdrawnData) {
 
-        this.jobApplicants = this.activateRoute.snapshot.data.jobApplicantsData
+        // this.jobApplicants = this.activateRoute.snapshot.data.jobApplicantsData
         this.jobApplied = this.activateRoute.snapshot.data.jobAppliedData
         this.jobShortList = this.activateRoute.snapshot.data.jobShortlistData
         this.jobConsidering = this.activateRoute.snapshot.data.jobConsideringData
@@ -138,28 +138,13 @@
     setAsShortListed(_id: any, index: any, applicant: any, origin: any) {
       this.spinnerSrv.show('Marking application as short-listed.')
       this.jobSrv.shortlistApplicant(_id).then((res) => {
+        console.log(applicant)
         const lastStatus = applicant.status
         applicant.status = 'SHORTLIST';
         this.jobShortList.push(applicant);
-        const _applicantId = this.jobApplicants.findIndex(x => x._id === applicant._id);
-        this.jobApplicants[_applicantId].status = 'SHORTLIST';
-        if(origin !== 'all applicants') {
-          origin.splice(index, 1);
-        } else {
-          switch (lastStatus) {
-            case 'SHORTLIST': 
-                this.jobShortList.splice(index, 1);
-            break;
-            case 'CONSIDERING': 
-                this.jobConsidering.splice(index, 1);
-            break;
-            case 'DECLINED': 
-                this.jobWithdrawn.splice(index, 1);
-            break;
-            default:
-            break;
-          }
-        }
+        // const _applicantId = this.jobApplicants.findIndex(x => x._id === applicant._id);
+        // this.jobApplicants[_applicantId].status = 'SHORTLIST';
+        origin.splice(index, 1);
       }).finally(() =>
       this.spinnerSrv.hide())
     }
@@ -170,25 +155,10 @@
         const lastStatus = applicant.status
         applicant.status = 'DECLINED';
         this.jobDeclined.push(applicant);
-        const _applicantId = this.jobApplicants.findIndex(x => x._id === applicant._id);
-        this.jobApplicants[_applicantId].status = 'DECLINED';
-        if(origin !== 'all applicants') {
-          origin.splice(index, 1);
-        } else {
-          switch (lastStatus) {
-            case 'SHORTLIST': 
-                this.jobShortList.splice(index, 1);
-            break;
-            case 'CONSIDERING': 
-                this.jobConsidering.splice(index, 1);
-            break;
-            case 'DECLINED': 
-                this.jobDeclined.splice(index, 1);
-            break;
-            default:
-            break;
-          }
-        }
+        // const _applicantId = this.jobApplicants.findIndex(x => x._id === applicant._id);
+        // this.jobApplicants[_applicantId].status = 'DECLINED';
+        
+        origin.splice(index, 1);
       }).finally(() =>
       this.spinnerSrv.hide())
     }
@@ -196,28 +166,14 @@
     setAsConsidered(_id: any, index: any, applicant: any, origin: any) {
       this.spinnerSrv.show('Marking application as considered.')
       this.jobSrv.considerApplicant(_id).then((res) => {
+        console.log(applicant)
         const lastStatus = applicant.status
         applicant.status = 'CONSIDERING';
         this.jobConsidering.push(applicant);
-        const _applicantId = this.jobApplicants.findIndex(x => x._id === applicant._id);
-        this.jobApplicants[_applicantId].status = 'CONSIDERING';
-        if(origin !== 'all applicants') {
-          origin.splice(index, 1);
-        } else {
-          switch (lastStatus) {
-            case 'SHORTLIST': 
-                this.jobShortList.splice(index, 1);
-            break;
-            case 'CONSIDERING': 
-                this.jobConsidering.splice(index, 1);
-            break;
-            case 'DECLINED': 
-                this.jobWithdrawn.splice(index, 1);
-            break;
-            default:
-            break;
-          }
-        }
+        // const _applicantId = this.jobApplicants.findIndex(x => x._id === applicant._id);
+        // this.jobApplicants[_applicantId].status = 'CONSIDERING';
+        
+        origin.splice(index, 1);
       }).finally(() =>
       this.spinnerSrv.hide())
     }

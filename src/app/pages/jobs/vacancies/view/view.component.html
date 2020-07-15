@@ -211,13 +211,13 @@
                       aria-controls="dropdown-basic"></i></button>
               <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
                   <li role="menuitem">
-                      <button class="dropdown-item" *ngIf="applicant.status !== 'CONSIDERING'" (click)="setAsConsidered(applicant._id,i,applicant, 'all applicants')">Mark as Considering</button>
+                      <button class="dropdown-item" *ngIf="applicant.status !== 'CONSIDERING'" (click)="setAsConsidered(applicant._id,i,applicant, jobApplied)">Mark as Considering</button>
                   </li>
                   <li role="menuitem">
-                      <button class="dropdown-item" *ngIf="applicant.status !== 'SHORTLIST'" (click)="setAsShortListed(applicant._id,i,applicant, 'all applicants')">Mark as Short listed</button>
+                      <button class="dropdown-item" *ngIf="applicant.status !== 'SHORTLIST'" (click)="setAsShortListed(applicant._id,i,applicant, jobApplied)">Mark as Short listed</button>
                   </li>
                   <li role="menuitem">
-                      <button class="dropdown-item" *ngIf="applicant.status !== 'DECLINED'" (click)="setAsDeclined(applicant._id,i,applicant, 'all applicants')">Mark as Declined</button>
+                      <button class="dropdown-item" *ngIf="applicant.status !== 'DECLINED'" (click)="setAsDeclined(applicant._id,i,applicant,jobApplied)">Mark as Declined</button>
                   </li>
               </ul>
           </div>
@@ -250,9 +250,6 @@
               <button dropdownToggle type="button" class="btn"><i class="fas fa-ellipsis-v"
                       aria-controls="dropdown-basic"></i></button>
               <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
-                  <!-- <li role="menuitem">
-                      <button class="dropdown-item">Mark as Rejected</button>
-                  </li> -->
                   <li role="menuitem">
                       <button class="dropdown-item" (click)="setAsConsidered(applicant._id,i, applicant, jobShortList)">Mark as Considering</button>
                   </li>
@@ -372,10 +369,10 @@
                       aria-controls="dropdown-basic"></i></button>
               <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
                   <li role="menuitem">
-                      <button class="dropdown-item" (click)="setAsConsidered(applicant._id,i,applicant, jobWithdrawn)">Mark as Considering</button>
+                      <button class="dropdown-item" (click)="setAsConsidered(applicant._id,i,applicant, jobDeclined)">Mark as Considering</button>
                   </li>
                   <li role="menuitem">
-                      <button class="dropdown-item" (click)="setAsShortListed(applicant._id,i,applicant, jobWithdrawn)">Mark as Short listed</button>
+                      <button class="dropdown-item" (click)="setAsShortListed(applicant._id,i,applicant, jobDeclined)">Mark as Short listed</button>
                   </li>
               </ul>
           </div>
