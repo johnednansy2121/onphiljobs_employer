@@ -44,4 +44,8 @@ export class UserComponent implements OnInit {
     localStorage.removeItem('token')
     this.router.navigateByUrl('/auth/login')
   }
+
+  goToViewProfile(){
+    this.router.navigate(['user/profile/view']);
+  }
 }

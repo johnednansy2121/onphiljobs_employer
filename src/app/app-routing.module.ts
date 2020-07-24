@@ -28,6 +28,7 @@ import { JobWithdrawnResolver } from './pages/jobs/vacancies/view/resolver/jobwi
 import { JobDeclinedResolver } from "./pages/jobs/vacancies/view/resolver/jobdeclined.resolver";
 
 import {AgmmapsComponent} from "./pages/debug/agmmaps/agmmaps.component";
+import { ViewProfileComponent } from './pages/user/profile/view/view.component';
 
 const routes: Routes = [
   {
@@ -90,12 +91,10 @@ const routes: Routes = [
         path: 'communications',
         component: CommunicationsInboxComponent
       },
-      // {
-      //   path: 'tools/resume/importer',
-      //   component: ImporterComponent,
-      //   loadChildren: () => import('./tools/resume/importer/importer.module').then(m => m.ImporterModule)
-      // },
-
+      {
+        path: 'user/profile/view',
+        component: ViewProfileComponent
+      },
       //debug stuff
       {
         path: 'debug/agmmaps',
