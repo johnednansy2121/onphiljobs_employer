@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mentors-dashboard',
@@ -7,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MentorsDashboardComponent implements OnInit {
 
-  pageTitle: string = 'Mentors Dashboard';
-  pageSubTitle: string = 'Find and manage all of your mentees';
+  pageTitle: string = 'Recruiters Dashboard';
+  pageSubTitle: string = 'Find and manage all of your recruiters';
 
   contactsItems: any[] = [
     {
@@ -155,9 +156,12 @@ export class MentorsDashboardComponent implements OnInit {
   contactsSearch: boolean = false;
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  seeMentor(){
+    this.router.navigate(['mentors/view']);
+  }
 }

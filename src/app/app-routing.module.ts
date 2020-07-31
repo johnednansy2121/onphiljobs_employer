@@ -29,6 +29,7 @@ import { JobDeclinedResolver } from "./pages/jobs/vacancies/view/resolver/jobdec
 
 import {AgmmapsComponent} from "./pages/debug/agmmaps/agmmaps.component";
 import { ViewProfileComponent } from './pages/user/profile/view/view.component';
+import { ViewMentorComponent } from './pages/mentors/view/view.component';
 
 const routes: Routes = [
   {
@@ -85,6 +86,10 @@ const routes: Routes = [
       {
         path: 'mentors/dashboard',
         component: MentorsDashboardComponent
+      },
+      {
+        path: 'mentors/view',
+        component: ViewMentorComponent
       },
       //communications
       {

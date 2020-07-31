@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row ml-3">
+        <div class="col-3 border card pl-0 pr-0">
+            <div class="card-body">
+                <div class="bg-dark text-light w-100" style="height: 185px">
+                    Space for mentor's image
+                </div>
+                <div class="mt-3 mb-3 text-monospace small">
+                    CLASSIFICATION
+                </div>
+                <div>
+                    <span class="font-weight-bolder">RECRUITMENT AREAS</span>
+                    <ul class="small pl-4 text-secondary">
+                        <li>Admin/Office Support</li>
+                        <li>IT Professionals</li>
+                        <li>Skilled Trades</li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="font-weight-bolder">RECRUITMENT SKILLS</span>
+                    <ul class="small pl-4 text-secondary">
+                        <li>Talent Assessment & Acquisition</li>
+                        <li>Candidate Sourcing & Screening</li>
+                        <li>High-Volume Staffing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-8 border card ml-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-10 d-flex align-items-b pl-0 pr-0">
+                        <h3 class="mb-0">John Doe</h3>
+                        <span class="ml-3 small"><i class="far fa-id-badge"></i> &nbsp;R-000001</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="small text-secondary float-right"><i class="fas fa-bookmark"></i> &nbsp;Bookmark</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="content__title__text small">Recruitment Consultant</span>
+                </div>
+                <div class="row">
+                    <div class="mt-3 mb-2 text-monospace small">
+                        RANKINGS
+                    </div>
+                </div>
+                <div class="row">
+                    <h3 class="mb-0">8.5</h3>
+                    <div class="d-flex align-items-c small">
+                        <span class="fas fa-star ml-2 checked"></span>
+                        <span class="fas fa-star ml-2 checked"></span>
+                        <span class="fas fa-star ml-2 checked"></span>
+                        <span class="fas fa-star ml-2 unchecked"></span>
+                        <span class="fas fa-star ml-2 unchecked"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="toolbar toolbar--inner w-100 pl-0 pr-0">
+                        <div class="toolbar__nav">
+                          <a [ngClass]="{content__title__text: activeTab === 'PUBLISHED'}" (click)="tabSearch('PUBLISHED')">About</a>
+                          <a [ngClass]="{content__title__text: activeTab === 'DRAFT'}"  (click)="tabSearch('DRAFT')">Job Posts</a>
+                          <a [ngClass]="{content__title__text: activeTab === 'UNLISTED'}"  (click)="tabSearch('UNLISTED')">Recruits</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

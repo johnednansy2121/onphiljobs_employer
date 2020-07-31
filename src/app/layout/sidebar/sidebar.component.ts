@@ -65,7 +65,7 @@ export class SidebarComponent implements OnInit {
       ],
     },
     {
-      title: 'Mentors', icon: 'graduation-cap', visibility: 'inactive',
+      title: 'Recruiters', icon: 'users', visibility: 'inactive',
       sub: [
         {title: "Dashboard", icon: "home", route: "/mentors/dashboard"},
         {title: "Shared Tasks", icon: "tasks", route: "/mentors/sharedtasks", class: "disabled"},
