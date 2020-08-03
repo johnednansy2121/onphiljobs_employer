@@ -90,6 +90,8 @@ import { CommunicationsInboxComponent } from './pages/communications/inbox/inbox
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { AgmmapsComponent } from './pages/debug/agmmaps/agmmaps.component'
 import { ViewProfileComponent } from './pages/user/profile/view/view.component';
+import { ViewMentorComponent } from './pages/mentors/view/view.component';
+import { NewMentorComponent } from './pages/mentors/new/new.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -122,7 +124,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MentorsDashboardComponent,
     CommunicationsInboxComponent,
     AgmmapsComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    ViewMentorComponent,
+    NewMentorComponent
   ],
   imports: [
     BrowserModule,
