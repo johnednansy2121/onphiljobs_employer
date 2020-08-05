@@ -68,9 +68,10 @@
     }
 }
 
-  .content__gradient__background {
-    background: linear-gradient(to top, $color, lighten($color, 20%)) !important;
-  }
+.content__gradient__background {
+  // background: linear-gradient(to top, $color, lighten($color, 20%)) !important;
+  background: linear-gradient(163deg, #ffbd5c, #1fd084 65%) !important;
+}
 
   .header,
   .login__block__header,
@@ -78,13 +79,13 @@
   .top-menu,
   .content__background__theme,
   .progress-bar {
-    background-color: $color !important;
+    background-color: #ffae38 !important;
   }
   .navigation__sub--active > a,
   .navigation__active > a,
   .navigation__active:before,
   .content__title__text {
-    color: $color !important;
+    color: #ffae38 !important;
   }
   .content__background__theme__lighten {
     background-color: lighten( $color, 10% ) !important;
