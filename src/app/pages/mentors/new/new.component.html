@@ -5,7 +5,7 @@
         </small>
 
         <div class="actions">
-            <a class="btn back_btn " [routerLink]="'/vacancies'"><i class="fa fa-chevron-left"></i> Back</a>
+            <a class="btn back_btn " [routerLink]="'/mentors/dashboard'"><i class="fa fa-chevron-left"></i> Back</a>
         </div>
     </header>
     <form>
@@ -15,8 +15,36 @@
                 <h4 class="card-subtitle">Enter the information for the recruiter.</h4>
                 <div class="col-md-12 px-0">
                     <div class="form-group">
-                        <label class="">Recruiter Name</label>
-                        <input type="text" class="form-control" placeholder="Enter your job title">
+                        <label class="">First Name</label>
+                        <input type="text" class="form-control" placeholder="Enter First Name">
+                        <i class="form-group__bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <label class="">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Enter Last Name">
+                        <i class="form-group__bar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Recruiter Classification</h4>
+                <h4 class="card-subtitle">Enter the classifications of the recruiter.</h4>
+                <div class="col-md-12 px-0">
+                    <div class="form-group mb-5">
+                        <label for="">Recruitment Areas</label>
+                        <tag-input type="text" [ngModel]="itemsAsObjects" class="form-control"
+                            name="qualification" ngModel>
+                        </tag-input>
+                        <i class="form-group__bar"></i>
+                    </div>
+                    <div class="form-group mb-5">
+                        <label class="">Recruitment Skills</label>
+                        <tag-input type="text" [ngModel]="itemsAsObjects2" class="form-control"
+                            name="qualification" ngModel>
+                        </tag-input>
                         <i class="form-group__bar"></i>
                     </div>
                 </div>
