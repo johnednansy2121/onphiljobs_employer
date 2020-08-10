@@ -31,6 +31,7 @@ import {AgmmapsComponent} from "./pages/debug/agmmaps/agmmaps.component";
 import { ViewProfileComponent } from './pages/user/profile/view/view.component';
 import { ViewMentorComponent } from './pages/mentors/view/view.component';
 import { NewMentorComponent } from './pages/mentors/new/new.component';
+import { EditMentorComponent } from './pages/mentors/edit/edit.component';
 
 const routes: Routes = [
   {
@@ -95,6 +96,10 @@ const routes: Routes = [
       {
         path: 'mentors/new',
         component: NewMentorComponent
+      },
+      {
+        path: 'mentors/edit',
+        component: EditMentorComponent
       },
       //communications
       {

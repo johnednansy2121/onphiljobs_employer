@@ -40,7 +40,10 @@
           <small>{{ contact.email }}</small>
         </div>
 
-        <button class="contacts__btn" (click)="seeMentor()">View</button>
+        <div class="row">
+          <button class="contacts__btn ml-2" (click)="seeMentor()">View</button>
+          <button class="contacts__btn" (click)="updateMentor()">Update</button>
+        </div>
       </div>
     </div>
   </div>

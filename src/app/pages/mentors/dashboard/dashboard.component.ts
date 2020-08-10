@@ -164,4 +164,8 @@ export class MentorsDashboardComponent implements OnInit {
   seeMentor(){
     this.router.navigate(['mentors/view']);
   }
+
+  updateMentor(){
+    this.router.navigate(['mentors/edit']);
+  }
 }
