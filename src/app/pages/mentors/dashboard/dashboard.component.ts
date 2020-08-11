@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MentorService } from 'src/app/services/mentor.service';
 
 @Component({
   selector: 'app-mentors-dashboard',
@@ -156,7 +157,7 @@ export class MentorsDashboardComponent implements OnInit {
   contactsSearch: boolean = false;
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private mservice: MentorService) { }
 
   ngOnInit(): void {
   }
@@ -165,7 +166,9 @@ export class MentorsDashboardComponent implements OnInit {
     this.router.navigate(['mentors/view']);
   }
 
-  updateMentor(){
+  updateMentor(contact){
+    this.mservice.fname = contact.name;
+    this.mservice.lname = contact.name;
     this.router.navigate(['mentors/edit']);
   }
 }
