@@ -14,3 +14,9 @@
 .fontawesome_font_weight {
     -webkit-text-stroke: .3px white;
 }
+
+.long-txt-ellip{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

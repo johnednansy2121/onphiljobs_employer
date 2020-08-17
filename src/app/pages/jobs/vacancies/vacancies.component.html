@@ -1,4 +1,3 @@
-
 <div class="content__inner">
   <header class="content__title">
     <h1>{{ pageTitle }}</h1>
@@ -10,73 +9,103 @@
 
     <div class="toolbar toolbar--inner">
       <div class="toolbar__nav">
-        <a [ngClass]="{content__title__text: activeTab === 'PUBLISHED'}" (click)="tabSearch('PUBLISHED')">Live ({{ getNumberList('PUBLISHED') }})</a>
-        <a [ngClass]="{content__title__text: activeTab === 'DRAFT'}"  (click)="tabSearch('DRAFT')">Draft ({{ getNumberList('DRAFT') }})</a>
-        <a [ngClass]="{content__title__text: activeTab === 'UNLISTED'}"  (click)="tabSearch('UNLISTED')">Archived ({{ getNumberList('UNLISTED') }})</a>
+        <a [ngClass]="{content__title__text: activeTab === 'PUBLISHED'}" (click)="tabSearch('PUBLISHED')">Live
+          ({{ getNumberList('PUBLISHED') }})</a>
+        <a [ngClass]="{content__title__text: activeTab === 'DRAFT'}" (click)="tabSearch('DRAFT')">Draft
+          ({{ getNumberList('DRAFT') }})</a>
+        <a [ngClass]="{content__title__text: activeTab === 'UNLISTED'}" (click)="tabSearch('UNLISTED')">Archived
+          ({{ getNumberList('UNLISTED') }})</a>
       </div>
 
-      
+
       <div class="actions">
         <i class="actions__item fa fa-search fontawesome_font_weight" (click)="jobsSearch = true"></i>
         <div class="dropdown actions__item" dropdown>
-        <i class="fa fa-sort-amount-desc fontawesome_font_weight" dropdownToggle></i>
-            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-                <a (click)="searchButton('metadata.dateCreated desc')" class="dropdown-item">Newest to Oldest</a>
-                <a (click)="searchButton('metadata.dateCreated asc')" class="dropdown-item">Oldest to Newest</a>
-            </div>
+          <i class="fa fa-sort-amount-desc fontawesome_font_weight" dropdownToggle></i>
+          <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+            <a (click)="searchButton('metadata.dateCreated desc')" class="dropdown-item">Newest to Oldest</a>
+            <a (click)="searchButton('metadata.dateCreated asc')" class="dropdown-item">Oldest to Newest</a>
+          </div>
         </div>
         <i class="actions__item fa fa-plus fontawesome_font_weight" routerLink="/vacancies/new"></i>
-    </div>
+      </div>
 
-    <div class="toolbar__search" *ngIf="jobsSearch">
-        <input type="text" [(ngModel)]="searchItem"  (keydown.enter)="searchJobTitle($event.target.value)"  placeholder="Enter job title to search..." >
-        <i class="toolbar__search__close fa fa-long-arrow-left fontawesome_font_weight" (click)="jobsSearch = false"></i>
-    </div>
+      <div class="toolbar__search" *ngIf="jobsSearch">
+        <input type="text" [(ngModel)]="searchItem" (keydown.enter)="searchJobTitle($event.target.value)"
+          placeholder="Enter job title to search...">
+        <i class="toolbar__search__close fa fa-long-arrow-left fontawesome_font_weight"
+          (click)="jobsSearch = false"></i>
+      </div>
     </div>
 
     <div class="card-body pt-0">
-    
+
       <div class="card-columns" *ngIf="filteredJobs.length > 0; else showNoResults">
         <div class="card" *ngFor="let job of filteredJobs">
           <div class="card-header">
             <div class="row">
               <div class="col-9">
-                <h5 class="card-title">{{job.title}}</h5>
-                <h5 class="card-subtitle">{{ job.metadata.dateCreated | date:'mediumDate' }}</h5>
+                <h5 class="card-title long-txt-ellip">{{job.title}}</h5>
+                <h5 cla ss="card-subtitle">{{ job.metadata.dateCreated | date:'mediumDate' }}</h5>
               </div>
               <div class="col-3">
                 <span class="badge badge-pill badge-success float-right" *ngIf="job.status === 'PUBLISHED'">Live</span>
                 <span class="badge badge-pill badge-warning float-right" *ngIf="job.status === 'DRAFT'">Draft</span>
-                <span class="badge badge-pill badge-danger float-right" *ngIf="job.status === 'UNLISTED'">Archived</span>
+                <span class="badge badge-pill badge-danger float-right"
+                  *ngIf="job.status === 'UNLISTED'">Archived</span>
               </div>
             </div>
 
           </div>
           <div class="card-body">
             <div class="pb-4">
-              <p class="card-text">{{job.subtitle}}</p>
+              <p class="card-text long-txt-ellip">{{job.subtitle}}</p>
             </div>
 
-            <div class="row no-gutters float-right">
-                <a routerLink="{{'/vacancies/edit/' + job._id}}" class="btn btn-success float-right mb-3">Edit Job</a>
-                <a routerLink="{{'/vacancies/view/' + job._id}}" class="ml-3 btn btn-primary float-right mb-3">Manage Job</a>
+            <div>
+              <table class="table table-striped">
+                <tbody>
+                  <tr>
+                    <td>Applied</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>Considering</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>Shortlisted</td>
+                    <td>0</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
+            <div class="row no-gutters float-right w-100">
+              <div class="col-6">
+                <a routerLink="{{'/vacancies/edit/' + job._id}}" class="btn btn-success float-left mb-3 w-100">Edit Job</a>
+              </div>   
+              <div class="col-6">
+                <a routerLink="{{'/vacancies/view/' + job._id}}" class="ml-3 btn btn-primary float-right mb-3 w-100">Manage
+                  Job</a>
+              </div>
+            </div>
           </div>
+        </div>
+
       </div>
-      
-      </div>
-      
-      <ng-template  #showNoResults>
+
+      <ng-template #showNoResults>
         <div class="listview listview--bordered listview--hover">
-            <div class="p-5    m-auto text-center">
-              <i class="fas fa-search search__font__size"></i>
-              <p class="mb-0 mt-2">It looks like theres no one here,</p>
-              <p>please try searching again</p>
-            </div>
+          <div class="p-5    m-auto text-center">
+            <i class="fas fa-search search__font__size"></i>
+            <p class="mb-0 mt-2">It looks like theres no one here,</p>
+            <p>please try searching again</p>
+          </div>
         </div>
       </ng-template>
-      <mat-paginator (page)="changePage($event)" [pageSize]="searchQuery.pageSize" [length]="searchResultTotal" [pageSizeOptions]="[5, 10, 25, 100]">
+      <mat-paginator (page)="changePage($event)" [pageSize]="searchQuery.pageSize" [length]="searchResultTotal"
+        [pageSizeOptions]="[5, 10, 25, 100]">
       </mat-paginator>
     </div>
   </div>
