@@ -21,8 +21,25 @@
     <div class="col-lg-9 my-2">
         <div class="content__container ">
             <div class="card mb-2">
-                <div class="card-body">
-                    <p>Fun stuff coming soon...</p>
+                <div class="card-body pt-2 pb-0 jobs-table">
+                    <div>
+                        <table class="table table-striped">
+                          <thead>
+                              <th class="w-60vh">Job Posting</th>
+                              <th class="w-20vh">Applied</th>
+                              <th>Considering</th>
+                              <th>Shortlisted</th>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let job of searchResults">
+                                  <td class="ta-left">{{job.title}}</td>
+                                  <td>0</td>
+                                  <td>0</td>
+                                  <td>0</td>
+                              </tr>
+                          </tbody>
+                        </table>
+                      </div>
                 </div>
             </div>
         </div>
