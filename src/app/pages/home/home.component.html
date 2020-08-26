@@ -76,8 +76,18 @@
     <div class="col-lg-3 my-2">
         <div class="content__container">
             <div class="card mb-2">
-                <div class="card-body">
-                    <p>Fun stuff coming soon...</p>
+                <div class="card-body pt-4 recs-table">
+                    <div class="row">
+                        <h5 class="float-left pb-3">Total recruits</h5>
+                    </div>
+                    <div class="row" *ngFor="let contact of contactsItems">
+                        <div class="col-4">
+                            <img [src]="['./assets/demo/img/contacts/'+contact.img]" alt="" class="w-50px">
+                        </div>
+                        <div class="col-8">
+                            3
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
