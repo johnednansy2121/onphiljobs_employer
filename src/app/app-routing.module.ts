@@ -32,6 +32,7 @@ import { ViewProfileComponent } from './pages/user/profile/view/view.component';
 import { ViewMentorComponent } from './pages/mentors/view/view.component';
 import { NewMentorComponent } from './pages/mentors/new/new.component';
 import { EditMentorComponent } from './pages/mentors/edit/edit.component';
+import { HomeDataResolver } from './pages/home/resolver/home.resolver';
 
 const routes: Routes = [
   {
@@ -50,6 +51,7 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+        resolve: { homeData: HomeDataResolver }
       },
 
       //people
