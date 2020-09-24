@@ -1,0 +1,24 @@
+// .profile{
+//     width: 20vh;
+//     border-radius: 50%;
+//     background: #512DA8;
+//     font-size: 75px;
+//     color: #fff;
+// }
+
+$image-size: 140px;
+.avatar {
+  .user {
+    height: $image-size;
+    width: $image-size;
+    border: 2px solid rgba(158, 157, 157, 0.651) !important;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    line-height: 140px;
+    .name {
+      font-size: 80px;
+      text-transform: uppercase;
+    }
+  }
+}
