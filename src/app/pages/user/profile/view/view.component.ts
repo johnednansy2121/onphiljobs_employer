@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewProfileComponent implements OnInit {
 
+  pageTitle = "Profile page";
+  pageSubTitle = "View and edit your profile"
   name = "John Doe";
   abbrev: string;
 
