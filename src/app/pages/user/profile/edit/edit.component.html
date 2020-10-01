@@ -1,1 +1,62 @@
-<p>edit works!</p>
+<div class="content__inner">
+    <header class="content__title">
+        <h1>{{ pageTitle }}</h1>
+        <small>{{ pageSubTitle }}
+        </small>
+
+        <div class="actions">
+            <a class="btn back_btn " [routerLink]="'/user/profile/view'"><i class="fa fa-chevron-left"></i> Back</a>
+        </div>
+    </header>
+    <form>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Information</h4>
+                <h4 class="card-subtitle">Enter the information.</h4>
+                <div class="col-md-12 px-0">
+                    <div class="form-group">
+                        <label class="">Company Name</label>
+                        <input type="text" class="form-control" placeholder="Enter Company/Organization's Name">
+                        <i class="form-group__bar"></i>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Enter Last Name">
+                        <i class="form-group__bar"></i>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Classification</h4>
+                <h4 class="card-subtitle">Enter the classifications of the company.</h4>
+                <div class="col-md-12 px-0">
+                    <div class="form-group mb-5">
+                        <label for="">Areas</label>
+                        <tag-input type="text" class="form-control"
+                            name="areas" ngModel>
+                        </tag-input>
+                        <i class="form-group__bar"></i>
+                    </div>
+                    <div class="form-group mb-5">
+                        <label class="">Recruitment Skills</label>
+                        <tag-input type="text" class="form-control"
+                            name="skills" ngModel>
+                        </tag-input>
+                        <i class="form-group__bar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-12 pull-right px-0 px-sm-0 px-lg-2 pb-5 mb-3">
+        <button class="btn content__background__theme text-white float-right col-12 col-sm-12 col-md-2 col-lg-2"
+           >Save Profile</button>
+
+        <button
+            class="btn btn-outline-theme-grey float-right mt-2 mt-lg-0 mt-md-0 mt-sm-2 col-12 col-sm-12 col-md-2 col-lg-2 mr-0 mr-sm-0 mr-md-2 mr-lg-2"
+            > Reset</button>
+    </div>
+</div>
