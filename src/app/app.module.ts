@@ -95,6 +95,7 @@ import { NewMentorComponent } from './pages/mentors/new/new.component';
 import { EditMentorComponent } from './pages/mentors/edit/edit.component';
 import { EditProfileComponent } from './pages/user/profile/edit/edit.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
+import { SettingsComponent } from './pages/user/settings/settings.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -132,7 +133,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NewMentorComponent,
     EditMentorComponent,
     EditProfileComponent,
-    TasksComponent
+    TasksComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

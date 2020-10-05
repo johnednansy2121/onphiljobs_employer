@@ -34,6 +34,8 @@ import { NewMentorComponent } from './pages/mentors/new/new.component';
 import { EditMentorComponent } from './pages/mentors/edit/edit.component';
 import { HomeDataResolver } from './pages/home/resolver/home.resolver';
 import { EditProfileComponent } from './pages/user/profile/edit/edit.component';
+import { TasksComponent } from './pages/tasks/tasks.component';
+import { SettingsComponent } from './pages/user/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -109,6 +111,7 @@ const routes: Routes = [
         path: 'communications',
         component: CommunicationsInboxComponent
       },
+      //user
       {
         path: 'user/profile/view',
         component: ViewProfileComponent
@@ -116,6 +119,15 @@ const routes: Routes = [
       {
         path: 'user/profile/edit',
         component: EditProfileComponent
+      },
+      {
+        path: 'user/settings',
+        component: SettingsComponent
+      },
+      //tasks
+      {
+        path: 'tasks/view',
+        component: TasksComponent
       },
       //debug stuff
       {
