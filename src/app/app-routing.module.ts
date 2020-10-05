@@ -33,6 +33,7 @@ import { ViewMentorComponent } from './pages/mentors/view/view.component';
 import { NewMentorComponent } from './pages/mentors/new/new.component';
 import { EditMentorComponent } from './pages/mentors/edit/edit.component';
 import { HomeDataResolver } from './pages/home/resolver/home.resolver';
+import { EditProfileComponent } from './pages/user/profile/edit/edit.component';
 
 const routes: Routes = [
   {
@@ -111,6 +112,10 @@ const routes: Routes = [
       {
         path: 'user/profile/view',
         component: ViewProfileComponent
+      },
+      {
+        path: 'user/profile/edit',
+        component: EditProfileComponent
       },
       //debug stuff
       {
