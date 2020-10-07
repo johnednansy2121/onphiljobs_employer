@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-settings',
@@ -7,10 +6,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  listTab: any = [
+    { tabName: 'Change Password', tabRoute: 'change-password' },
+  ];
 
-  env = environment;
   pageTitle: string = 'Settings';
-  pageSubTitle: string = 'Change your profile settings';
+  pageSubTitle: string = 'Change your profile settings.';
+
+  profile = { displayPicture: null }
+  
   constructor() { }
 
   ngOnInit(): void {

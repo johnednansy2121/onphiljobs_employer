@@ -44,6 +44,7 @@ const routes: Routes = [
     canActivate: [
       AuthenticationGuard
     ],
+    // loadChildren: () => import('./pages/user/settings/settings.module').then(m => m.SettingsModule),
     children: [
       //home page and default route
       {
@@ -122,7 +123,8 @@ const routes: Routes = [
       },
       {
         path: 'user/settings',
-        component: SettingsComponent
+        component: SettingsComponent,
+        loadChildren: () => import('./pages/user/settings/settings.module').then(m => m.SettingsModule)
       },
       //tasks
       {

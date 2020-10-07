@@ -95,7 +95,7 @@ import { NewMentorComponent } from './pages/mentors/new/new.component';
 import { EditMentorComponent } from './pages/mentors/edit/edit.component';
 import { EditProfileComponent } from './pages/user/profile/edit/edit.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
-import { SettingsComponent } from './pages/user/settings/settings.component';
+import { SettingsModule } from './pages/user/settings/settings.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -133,8 +133,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NewMentorComponent,
     EditMentorComponent,
     EditProfileComponent,
-    TasksComponent,
-    SettingsComponent
+    TasksComponent
   ],
   imports: [
     BrowserModule,
@@ -205,7 +204,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       // please get your own API key here:
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
       apiKey: 'AIzaSyBX9oGSWibe9Wl0XFtT8KWUmx_ib84hp9A'
-    })
+    }),
+    SettingsModule
   ],
   providers: [
     {
