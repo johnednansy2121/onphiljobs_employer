@@ -42,20 +42,20 @@ export class SidebarComponent implements OnInit {
         },
       ],
     },
-    {
-      title: "Activity",
-      icon: "briefcase",
-      route: "/2",
-      class: "disabled",
-      promote: true,
-    },
-    {
-      title: "Clients",
-      icon: "users",
-      route: "/3",
-      class: "disabled",
-      promote: true,
-    },
+    // {
+    //   title: "Activity",
+    //   icon: "briefcase",
+    //   route: "/2",
+    //   class: "disabled",
+    //   promote: true,
+    // },
+    // {
+    //   title: "Clients",
+    //   icon: "users",
+    //   route: "/3",
+    //   class: "disabled",
+    //   promote: true,
+    // },
     {
       title: 'Jobs', icon: 'running', visibility: 'inactive',
       sub: [
@@ -72,13 +72,13 @@ export class SidebarComponent implements OnInit {
         {title: "Reports", icon: "book", route: "/mentors/reports", class: "disabled"},
       ],
     },
-    {
-      title: "Communications",
-      icon: "comments",
-      route: "/communications",
-      class: "disabled",
-      promote: true,
-    },
+    // {
+    //   title: "Communications",
+    //   icon: "comments",
+    //   route: "/communications",
+    //   class: "disabled",
+    //   promote: true,
+    // },
     {
       title: 'Debug', icon: 'bug', visibility: 'inactive',
       sub: [

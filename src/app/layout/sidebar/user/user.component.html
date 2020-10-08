@@ -14,7 +14,7 @@
   </div>
   <div *ngIf="userMenu" [@toggleUserMenu]="userMenu" class="user__menu">
     <a  routerLinkActive="content__title__text" (click)="goToViewProfile();">View Profile</a>
-    <a  routerLinkActive="content__title__text">Settings</a>
+    <a  routerLinkActive="content__title__text" (click)="goToSettings()">Settings</a>
     <a  routerLinkActive="content__title__text" (click)="logout()" >Logout</a>
   </div>
 </div>

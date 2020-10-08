@@ -48,4 +48,8 @@ export class UserComponent implements OnInit {
   goToViewProfile(){
     this.router.navigate(['user/profile/view']);
   }
+
+  goToSettings(){
+    this.router.navigate(['user/settings']);
+  }
 }
