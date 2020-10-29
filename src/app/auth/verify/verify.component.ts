@@ -6,7 +6,10 @@ import {
   NavigationEnd,
   NavigationStart,
 } from "@angular/router";
+
+import { filter } from "rxjs/operators";
 import { ToastrService } from "ngx-toastr";
+import { AuthenticationService } from "../../services/authentication.service";
 import {environment} from "../../../environments/environment";
 
 @Component({
@@ -25,14 +28,24 @@ export class VerifyComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private authSvc: AuthenticationService,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-
-    setTimeout(() => {
-      this.verified = true;
-    }, 5000);
+    this.activatedRoute.paramMap.subscribe((params) => {
+      const param: any = params;
+      this.authSvc.verify(param.params.verificationid).subscribe(
+        (data: any) => {
+          this.verified = data.success;
+          console.log(data);
+          this.authSvc.storeToken(data.model);
+        },
+        (error) => {
+          this.notVerified = true;
+        }
+      );
+    });
   }
 
   continue() {
