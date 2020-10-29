@@ -36,6 +36,7 @@ import { HomeDataResolver } from './pages/home/resolver/home.resolver';
 import { EditProfileComponent } from './pages/user/profile/edit/edit.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { SettingsComponent } from './pages/user/settings/settings.component';
+import { CreateComponent as CreateProfileComponent } from './pages/user/profile/create/create.component';
 
 const routes: Routes = [
   {
@@ -120,6 +121,10 @@ const routes: Routes = [
       {
         path: 'user/profile/edit',
         component: EditProfileComponent
+      },
+      {
+        path: 'user/profile/create',
+        component: CreateProfileComponent
       },
       {
         path: 'user/settings',
