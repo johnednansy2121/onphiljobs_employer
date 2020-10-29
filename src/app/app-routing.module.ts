@@ -9,7 +9,11 @@ import { VerifyComponent } from './auth/verify/verify.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SearchComponent } from './pages/people/search/search.component';
 
-import { AuthenticationGuard } from './guards/authentication.guard'
+//import { AuthenticationGuard } from './guards/authentication.guard'
+
+import { LoggedinGuard } from "./guards/loggedin.guard";
+import { HasSessionGuard } from "./guards/hassession.guard";
+import { HasProfileGuard }  from "./guards/hasprofile.guard";
 import { VacanciesComponent } from "./pages/jobs/vacancies/vacancies.component";
 import { ViewComponent as VacanciesViewComponent } from "./pages/jobs/vacancies/view/view.component";
 import { NewComponent as VacanciesNewComponent } from "./pages/jobs/vacancies/new/new.component";
@@ -42,7 +46,9 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     canActivate: [
-      AuthenticationGuard
+      //AuthenticationGuard
+      HasProfileGuard,
+      HasSessionGuard,
     ],
     // loadChildren: () => import('./pages/user/settings/settings.module').then(m => m.SettingsModule),
     children: [

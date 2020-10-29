@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import {SharedService} from "../../services/shared.service";
 import {Router, ActivatedRoute} from "@angular/router";
+import {AuthenticationService} from "../../services/authentication.service";
 import {environment} from "../../../environments/environment";
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr'; 
@@ -42,6 +43,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private service: SharedService,
     private router: Router,
+    private authSvc: AuthenticationService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private spinnerSrv: SpinnerService,
@@ -76,7 +78,7 @@ export class SignupComponent implements OnInit {
     });
   }
   signUp() {
-    this.spinnerSrv.show();
+    //this.spinnerSrv.show();
     if (!this.formErrorHandler) {
     this.spinnerSrv.show('Registering you now...');
     let internationalNumber = ''
@@ -85,12 +87,26 @@ export class SignupComponent implements OnInit {
     } else {
       internationalNumber = this.phone.internationalNumber.replace(/\s/g,'')
     }
+    const { userName, email, password, confirm } = this.signupForm.value
+    this.authSvc.signUp({ userName, email, password, confirm, phone: internationalNumber, on2FA: this.on2FA}, this.queryTag)
+      .then(() => {
+        this.spinnerSrv.hide()
+        this.toastr.success('Successfully registered.')
+        this.isRequestProcess = 2
+      })
+      .catch(err => {
+        this.spinnerSrv.hide()
+        this.toastr.error(err.error.message)
+      })
+
+    //}
+  }
     setTimeout(() => {
       this.isRequestProcess = 2
       this.spinnerSrv.hide();
     }, 2000);  
   }
-}
+
   public checkWhiteSpace(data) {
     return data.indexOf(' ') >= 0;
   }
