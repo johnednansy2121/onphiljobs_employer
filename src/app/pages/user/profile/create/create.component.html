@@ -1,0 +1,120 @@
+<div [attr.data-ma-theme]="env.theme">
+    <div class="body-container content__gradient__background">
+        <div class="profile-form-container mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mark content__background__theme">
+    
+                    </div>
+                    <div class="panel-header">
+                        <h1>Hi!</h1>
+                        <p>Lets start setup your <span class="highlight content__title__text">profile</span> by telling us about
+                         <span class="highlight content__title__text">yourself.</span></p>
+                    </div>
+                    <div class="avatar-panel">
+                        <div class="avatar-section">
+                            <img class="avatar" [src]="profileImage == '' ? './assets/demo/img/profile-pics/8.jpg' : profileImage" alt="">
+                            <button (click)="openModal(imageCropper)"><i class="fas fa-pencil-alt"></i></button>
+                        </div>
+                    </div>
+                    <mat-vertical-stepper [linear]="isLinear" #stepper>
+                        <mat-step [stepControl]="firstFormGroup">
+                          <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Fill out your details</ng-template>
+                            <div class="form-group form-group--float mt-4">
+                                <input type="text" formControlName="firstName" class="form-control" InputFloat required>
+                                <label>First Name</label>
+                                <i class="form-group__bar"></i>
+                            </div>
+                            <div class="form-group form-group--float">
+                                <input type="text" formControlName="lastName" class="form-control" InputFloat required>
+                                <label>Last Name</label>
+                                <i class="form-group__bar"></i>
+                            </div>
+                            <div class="form-group form-group--float">
+                                <input type="text" formControlName="jobTitle" class="form-control" InputFloat required>
+                                <label>Job Title</label>
+                                <i class="form-group__bar"></i>
+                            </div>
+                            <div class="profile-submit w-50">
+                              <button class="btn content__background__theme" mat-button matStepperNext>Next</button>
+                            </div>
+                          </form>
+                        </mat-step>
+                        <mat-step [stepControl]="secondFormGroup">
+                          <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Fill out your location</ng-template>
+                            <div class="form-group form-group--float mt-4">
+                                <input type="text" formControlName="state" class="form-control" InputFloat required>
+                                <label>State</label>
+                                <i class="form-group__bar"></i>
+                            </div>
+                            <div class="form-group form-group--float">
+                                <input type="text" formControlName="country" class="form-control" InputFloat required>
+                                <label>Country</label>
+                                <i class="form-group__bar"></i>
+                            </div>
+                            <div>
+                              <div class="profile-submit w-50">
+                                <button class="btn content__background__theme" mat-button matStepperNext>Next</button>
+                              </div>
+                            </div>
+                          </form>
+                        </mat-step>
+                        <mat-step>
+                          <ng-template matStepLabel>Start exploring ONPH Job Platform</ng-template>
+                          <div class="row">
+                            <div class="profile-submit col-6 w-50">
+                                <button class="btn content__background__theme" mat-button (click)="submit()">Continue</button>
+                            </div>
+                            <div class="profile-submit col-6 w-50">
+                                <button class="btn content__background__theme__secondary" mat-button (click)="stepper.reset()">Reset</button>
+                            </div>
+                          </div>
+                        </mat-step>
+                      </mat-vertical-stepper>
+                </div>
+            </div>
+        </div>
+    
+        <ng-template #imageCropper>
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">Upload Photo</h3>
+                <button type="button" class="close pull-right" (click)="modalRef.hide()"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" *ngIf="imageChangedEvent === ''; else showImage">
+                <input type="file" (change)="fileChangeEvent($event)" hidden #uploader accept=".jpg, .JPG, .png, .PNG, .jpeg" />
+                <div class="upload_btn" (click)="uploader.click()">
+                    <i class="far fa-images"></i>
+                    <p>Select photo</p>
+                </div>
+            </div>
+            <ng-template #showImage>
+                <div class="modal-body">
+                    <input type="file" (change)="fileChangeEvent($event)" hidden #uploader
+                        accept=".jpg, .JPG, .png, .PNG, .jpeg" />
+                    <div class="upload_actions">
+                        <button class="btn btn-outline-light" (click)="uploader.click()">Select Photo</button>
+                        <div class="btn-group transform_actions">
+                            <button class="btn btn-outline-light" (click)="rotateLeft()"><i
+                                    class="fa fa-rotate-left"></i></button>
+                            <button class="btn btn-outline-light" (click)="rotateRight()"><i
+                                    class="fa fa-rotate-right"></i></button>
+                        </div>
+                    </div>
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1"
+                        format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()" roundCropper="true"
+                        [transform]="transform" [onlyScaleDown]="true" [canvasRotation]="canvasRotation" resizeToWidth="100"
+                        resizeToHeigth="100">
+                    </image-cropper>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success " (click)="uploadPhoto()" [disabled]="croppedImage ? false: true">Upload
+                        Photo</button>
+                </div>
+            </ng-template>
+        </ng-template>
+    </div>
+    </div>
