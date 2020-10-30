@@ -27,23 +27,9 @@ export class AuthenticationService {
         private toastSrv: ToastrService
         ) {}
 
-    public login(userName: string, password: string) {
-        return new Promise((resolve, reject) => {
-            this.httpClient.post(environment.api_path + this.API_VERSION + 'employer/login-employer', {
-                userName,
-                password
-            }).toPromise()
-            .then((result: IResult<string>) => {
-                this.toastSrv.success(result.Message)
-                localStorage.setItem('token', result.Data)
-                resolve()
-            })
-            .catch(err => {
-                this.toastSrv.error(err.error.Message)
-                reject()
-            })
-        })
-    }
+     public login(username: string, password: string) {
+    return this.httpClient.post(environment.api_path + this.API_VERSION + 'employer/login-employer', {userName: username, password:password }).toPromise()
+  }
 
     public signUp(signUpData, tag: string) {
         const { userName, password, email, phone, on2FA, confirm } = signUpData

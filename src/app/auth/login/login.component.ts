@@ -43,7 +43,9 @@ export class LoginComponent implements OnInit {
   login() {
     this.spinnerSrv.show('Signing you in...');
     this.authSrv.login(this.loginForm.value.email, this.loginForm.value.password)
-      .then(() => {
+      .then((result:any) => {
+        console.log(result);
+        this.authSrv.storeToken(result.model.token);
         this.loginForm.reset()
         this.router.navigateByUrl('/')
       })

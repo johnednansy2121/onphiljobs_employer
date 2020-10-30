@@ -27,6 +27,7 @@ export class SessionService {
         this.httpClient.get(environment.api_path + this.API_VERSION + 'employer')
             .subscribe(
                 (data: any) => {
+                  console.log(data);
                   const { model } = data;
                   this.currentUser = model
                   this.isInitialized = true
