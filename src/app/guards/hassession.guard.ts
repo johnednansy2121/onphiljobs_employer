@@ -20,12 +20,18 @@ export class HasSessionGuard implements CanActivate {
       return new Promise((resolve, reject) => {
       this.sessionService.initializeSession()
           .then(result => {
-              if(result) resolve(true)
+              if(result){
+                console.log(true)
+                resolve(true)
+              } 
             //we need to handle this error somehow, send the user to a failed to load page or somethihng
-            else resolve(false)
+            else{
+              console.log(false)
+              resolve(false)
+            } 
           })
           .catch(error => {
-            //we need to handle this error somehow, send the user to a failed to load page or somethihng
+            console.log(error)//we need to handle this error somehow, send the user to a failed to load page or somethihng
             resolve(false);
           })
     })

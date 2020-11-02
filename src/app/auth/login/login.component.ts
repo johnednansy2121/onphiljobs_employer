@@ -40,16 +40,28 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
   get formErrorHandler() { return this.f.password.errors || this.f.email.errors;  }
   get formStatusError() { return this.f.password.value === '' || this.f.email.value === '' }
-  login() {
-    this.spinnerSrv.show('Signing you in...');
-    this.authSrv.login(this.loginForm.value.email, this.loginForm.value.password)
-      .then((result:any) => {
-        console.log(result);
-        this.authSrv.storeToken(result.model.token);
-        this.loginForm.reset()
-        this.router.navigateByUrl('/')
-      })
-      .finally(() => this.spinnerSrv.hide())
+  login() { 
+    if (!this.formErrorHandler) {
+      this.errorMessage = '';
+
+      this.spinnerSrv.show('Signing you in...');
+      console.log(this.f);
+      this.authSrv.login(this.f.email.value, this.f.password.value)
+        .then((result: any) => {
+          //const { on2FA } = result.model
+          // if(on2FA) {
+          //   this.modalRef = this.modalSrv.show(template)
+          // } else {
+            console.log(result.model)
+            this.authSrv.storeToken(result.model.token);
+            this.router.navigateByUrl(environment.initial_page);
+          //}
+        })
+        .catch(err => {
+          console.log(err.error.message)
+          this.spinnerSrv.hide();
+        })
+    }
   }
 
 

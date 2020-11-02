@@ -3,7 +3,6 @@ import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { IResult } from '../models/IResult';
 
 @Injectable({
     providedIn: 'root'
@@ -93,6 +92,7 @@ export class AuthenticationService {
       }
     
       public storeToken(token: string){
+        console.log(token);
         localStorage.setItem('token', token);
         this.userToken = token;
         this.hasToken = true;

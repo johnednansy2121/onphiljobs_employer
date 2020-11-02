@@ -30,9 +30,11 @@ export class HasProfileGuard implements CanActivate {
                         resolve(true)
                     }   
                     else 
-                        resolve(this.router.parseUrl('/home'))
+                        console.log(true);
+                        resolve(this.router.parseUrl('/user/profile/create'))
                 })
                 .catch(err => {
+                    console.log(false)
                     resolve(this.router.parseUrl('/auth/login'))
                 })
             // this.userService.hasProfile()

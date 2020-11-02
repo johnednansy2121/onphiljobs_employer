@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { SharedService } from '../../services/shared.service';
-import { SpinnerService } from 'src/app/utilities/spinner/spinner.service';
+import { SpinnerService } from '../../utilities/spinner/spinner.service';
 
 @Component({
   selector: 'app-dashboard',

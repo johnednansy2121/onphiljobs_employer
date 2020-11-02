@@ -130,7 +130,10 @@ const routes: Routes = [
       },
       {
         path: 'user/profile/create',
-        component: CreateProfileComponent
+        component: CreateProfileComponent,
+        canActivate: [
+          LoggedinGuard
+        ]
       },
       {
         path: 'user/settings',
