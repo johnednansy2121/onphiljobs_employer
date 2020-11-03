@@ -65,7 +65,7 @@ export class CreateComponent implements OnInit {
     this.secondFormGroup = this.formBuilder.group({
       state: ['', Validators.required],
       country: ['', Validators.required]
-    });  
+    });
   }
 
   get f() {

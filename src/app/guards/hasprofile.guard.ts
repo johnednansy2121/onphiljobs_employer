@@ -25,26 +25,15 @@ export class HasProfileGuard implements CanActivate {
                 .then((result: any) => {
                     const { successful } = result
                     if(successful){
-                        console.log(result.model)
                         this.store.dispatch(new ProfileActions.SetProfile(result.model))
                         resolve(true)
-                    }   
-                    else 
-                        console.log(true);
-                        resolve(this.router.parseUrl('/user/profile/create'))
+                    }
+                    else
+                    resolve(this.router.parseUrl('/user/profile/create')) // ITO MAIN ISSUE - Fixed, don't just copy paste items make sure to know it also, if not debug them until you know it.
                 })
                 .catch(err => {
-                    console.log(false)
                     resolve(this.router.parseUrl('/auth/login'))
                 })
-            // this.userService.hasProfile()
-            //     .then(result => {
-            //         if(result) resolve(true)
-            //         else resolve(this.router.parseUrl("/profile/create"))
-            //     })
-            //     .catch(error => {
-            //         // resolve(this.router.parseUrl("/auth/login"));
-            //     })
         })
     }
 }

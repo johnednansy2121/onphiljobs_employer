@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class AuthenticationService {
-    
+
     private API_VERSION = 'api/v1/'
 
     //public api methods
@@ -32,7 +32,7 @@ export class AuthenticationService {
 
     public signUp(signUpData, tag: string) {
         const { userName, password, email, phone, on2FA, confirm } = signUpData
-        return this.httpClient.post(environment.api_path + this.API_VERSION + 'employer/signup-employer?tag=' + tag, { 
+        return this.httpClient.post(environment.api_path + this.API_VERSION + 'employer/signup-employer?tag=' + tag, {
           userName: userName.toLowerCase(),
           password: password,
           email: email,
@@ -44,11 +44,11 @@ export class AuthenticationService {
       public verify(id: string) {
         return this.httpClient.get(environment.api_path + this.API_VERSION + 'employer/verify-employer/' + id);
       }
-    
+
       public recoverPassword(username: string) {
         return this.httpClient.post(environment.api_path + this.API_VERSION + 'forgotpassword', { userName: username });
       }
-    
+
       public changePassword(data: FormGroup, code: string) {
         return new Promise((resolve ,reject) => {
           this.httpClient.put(environment.api_path + this.API_VERSION + 'forgotpassword', {
@@ -65,14 +65,15 @@ export class AuthenticationService {
               this.toastSrv.error(err.error.message)
               reject()
             })
-        }) 
+        })
       }
-    
+
       public isTokenValid(){
         return new Promise((resolve, reject) => {
           if (this.hasToken) {
             this.httpClient.get(environment.api_path + this.API_VERSION + 'sample').subscribe(
               (data: any) => {
+                console.log(data)
                 resolve(true)
               },
               (error => {
@@ -84,20 +85,20 @@ export class AuthenticationService {
           }
         })
       }
-    
+
       public clearTokenData(){
         this.hasToken = false;
         this.userToken = '';
         localStorage.removeItem('token');
       }
-    
+
       public storeToken(token: string){
         console.log(token);
         localStorage.setItem('token', token);
         this.userToken = token;
         this.hasToken = true;
       }
-    
+
       public requestPhoneVerification(number) {
         return new Promise((resolve, reject) => {
           this.httpClient.get(environment.api_path + this.API_VERSION + 'two-factor/request/' + number).toPromise()
@@ -110,7 +111,7 @@ export class AuthenticationService {
             })
         })
       }
-    
+
       public verifyPhone(code, number) {
         return new Promise((resolve, reject) => {
           this.httpClient.get(environment.api_path + this.API_VERSION + `two-factor/${number}/verify/${code}`).toPromise()
@@ -124,7 +125,7 @@ export class AuthenticationService {
             })
         })
       }
-    
+
       public verify2FALogin(userName, code) {
         return new Promise((resolve, reject) => {
           this.httpClient.post(environment.api_path + this.API_VERSION  + 'employer/2FA', { userName, code }).toPromise()
@@ -138,13 +139,13 @@ export class AuthenticationService {
               this.toastSrv.error(err.error.message)
               reject()
             })
-        }) 
+        })
       }
-    
+
       public get2FASettings() {
         return this.httpClient.get(environment.api_path + this.API_VERSION  + 'employer/2FA/settings').toPromise()
       }
-    
+
       public update2FASettings({ phone, on2FA }) {
         return new Promise((resolve, reject) => {
             this.httpClient.put(environment.api_path + this.API_VERSION  + 'employer/2FA/settings', { phone, on2FA }).toPromise()
@@ -155,8 +156,7 @@ export class AuthenticationService {
             .catch(err => {
               this.toastSrv.error(err.error.message)
               reject()
-            }) 
+            })
         })
       }
     }
-    

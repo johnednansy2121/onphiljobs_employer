@@ -21,20 +21,19 @@ export class HasSessionGuard implements CanActivate {
       this.sessionService.initializeSession()
           .then(result => {
               if(result){
-                console.log(true)
                 resolve(true)
-              } 
-            //we need to handle this error somehow, send the user to a failed to load page or somethihng
-            else{
-              console.log(false)
+              }
+            // ADD TAYO DITO NG FAILED PAGE - DIFFERENT FROM 404 PAGE - I'LL HANDLE THIS ONE - Russell
+              else{
               resolve(false)
-            } 
+            }
           })
           .catch(error => {
-            console.log(error)//we need to handle this error somehow, send the user to a failed to load page or somethihng
+            // ADD TAYO DITO NG FAILED PAGE - DIFFERENT FROM 404 PAGE - I'LL HANDLE THIS ONE - Russell
+            console.log(error)
             resolve(false);
           })
     })
   }
-  
+
 }

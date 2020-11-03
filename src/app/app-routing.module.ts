@@ -129,13 +129,6 @@ const routes: Routes = [
         component: EditProfileComponent
       },
       {
-        path: 'user/profile/create',
-        component: CreateProfileComponent,
-        canActivate: [
-          LoggedinGuard
-        ]
-      },
-      {
         path: 'user/settings',
         component: SettingsComponent,
         loadChildren: () => import('./pages/user/settings/settings.module').then(m => m.SettingsModule)
@@ -163,6 +156,13 @@ const routes: Routes = [
   {
     path: 'auth/forgot/changepassword',
     component: ChangepasswordComponent
+  },
+  {
+    path: 'user/profile/create',
+    component: CreateProfileComponent,
+    canActivate: [
+      LoggedinGuard
+    ]
   },
   {
     path: 'auth/forgot',

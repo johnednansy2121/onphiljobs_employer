@@ -19,7 +19,6 @@ export class LoggedinGuard implements CanActivate {
       return new Promise((resolve, reject) => {
         this.authService.isTokenValid()
           .then(result =>{
-              console.log(true)
               resolve(true)
           })
           .catch(error => {
