@@ -1,17 +1,19 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { base64ToBlob } from 'base64-blob';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
+import { ProfileService } from 'src/app/services/profile.service';
 import { SpinnerService } from 'src/app/utilities/spinner/spinner.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss']
+  styleUrls: ['./create.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateComponent implements OnInit {
   profileForm: FormGroup;
@@ -30,7 +32,7 @@ export class CreateComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
-    // private profileService: ProfileService,
+    private profileService: ProfileService,
     private router: Router,
     private modalService: BsModalService,
     // private fileService: FileService,
@@ -78,27 +80,27 @@ export class CreateComponent implements OnInit {
   }
 
   submit() {
-    // this.spinnerSrv.show("Creating your profile");
-    // this.profileForm.patchValue({
-    //   firstName: this.firstFormGroup.value.firstName,
-    //   lastName: this.firstFormGroup.value.lastName,
-    //   jobTitle: this.firstFormGroup.value.jobTitle,
-    //   state: this.secondFormGroup.value.state,
-    //   country: this.secondFormGroup.value.country
-    // });
-    // this.profileService
-    //   .createProfile(this.profileForm, this.profileImage)
-    //   .subscribe(
-    //     (data) => {
-    //       this.toastr.success("Successfully created your profile.");
-    //       console.log(data);
-    //       this.router.navigateByUrl("/blog/get-started");
-    //     },
-    //     (error) => {
-    //       this.toastr.error(error.error.message);
-    //       this.spinnerSrv.hide();
-    //     }
-    //   );
+    this.spinnerSrv.show("Creating your profile");
+    this.profileForm.patchValue({
+      firstName: this.firstFormGroup.value.firstName,
+      lastName: this.firstFormGroup.value.lastName,
+      jobTitle: this.firstFormGroup.value.jobTitle,
+      state: this.secondFormGroup.value.state,
+      country: this.secondFormGroup.value.country
+    });
+    this.profileService
+      .createProfile(this.profileForm, this.profileImage)
+      .subscribe(
+        (data) => {
+          this.toastr.success("Successfully created your profile.");
+          console.log(data);
+          this.router.navigateByUrl("/home");
+        },
+        (error) => {
+          this.toastr.error(error.error.message);
+          this.spinnerSrv.hide();
+        }
+      );
   }
 
   openModal(template: TemplateRef<any>) {

@@ -40,6 +40,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from "@angular/material/card";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatStepperModule } from "@angular/material/stepper";
+
 // 3rd party libraries
 import { QuillModule } from 'ngx-quill';
 import { CrystalLightboxModule } from '@crystalui/angular-lightbox';
@@ -161,6 +163,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatButtonModule,
     MatCardModule,
     MatPaginatorModule,
+    MatStepperModule,
     NgSelectModule,
     SelectDropDownModule,
     EcoFabSpeedDialModule,

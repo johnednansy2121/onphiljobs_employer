@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private spinnerSrv: SpinnerService,
-    private authSrv: AuthenticationService) {
+    private authSrv: AuthenticationService,
+    private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -59,6 +60,7 @@ export class LoginComponent implements OnInit {
         })
         .catch(err => {
           console.log(err.error.message)
+          this.toastr.error(err.error.message)
           this.spinnerSrv.hide();
         })
     }
