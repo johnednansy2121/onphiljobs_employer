@@ -71,7 +71,7 @@ export class AuthenticationService {
       public isTokenValid(){
         return new Promise((resolve, reject) => {
           if (this.hasToken) {
-            this.httpClient.get(environment.api_path + this.API_VERSION + 'sample').subscribe(
+            this.httpClient.get(environment.api_path + this.API_VERSION + 'sample-employer').subscribe(
               (data: any) => {
                 console.log(data)
                 resolve(true)
