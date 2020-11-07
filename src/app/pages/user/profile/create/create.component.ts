@@ -5,6 +5,7 @@ import { base64ToBlob } from 'base64-blob';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
+import { FileService } from 'src/app/services/file.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { SpinnerService } from 'src/app/utilities/spinner/spinner.service';
 import { environment } from 'src/environments/environment';
@@ -35,7 +36,7 @@ export class CreateComponent implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     private modalService: BsModalService,
-    // private fileService: FileService,
+    private fileService: FileService,
     private spinnerSrv: SpinnerService
   ) {}
 
@@ -159,20 +160,20 @@ export class CreateComponent implements OnInit {
   }
 
   uploadPhoto() {
-  //   base64ToBlob(this.croppedImage)
-  //     .then((blob) => {
-  //       this.fileService.uploadDisplayPhoto(blob).subscribe(
-  //         (result: any) => {
-  //           const { model } = result;
-  //           this.profileImage = model;
-  //           this.modalRef.hide();
-  //         },
-  //         (error) => {
-  //           this.toastr.error(error.error.message);
-  //         }
-  //       );
-  //     })
-  //     .catch((error) => this.toastr.error(error));
+    base64ToBlob(this.croppedImage)
+      .then((blob) => {
+        this.fileService.uploadDisplayPhoto(blob).subscribe(
+          (result: any) => {
+            const { model } = result;
+            this.profileImage = model;
+            this.modalRef.hide();
+          },
+          (error) => {
+            this.toastr.error(error.error.message);
+          }
+        );
+      })
+      .catch((error) => this.toastr.error(error));
   }
 
 }

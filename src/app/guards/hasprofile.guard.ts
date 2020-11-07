@@ -23,6 +23,7 @@ export class HasProfileGuard implements CanActivate {
             this.profileService.getProfile()
                 .toPromise()
                 .then((result: any) => {
+                  console.log(result)
                     const { successful } = result
                     if(successful){
                         this.store.dispatch(new ProfileActions.SetProfile(result.model))

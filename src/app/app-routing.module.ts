@@ -172,8 +172,6 @@ const routes: Routes = [
     path: 'auth/verify/:verificationid',
     component: VerifyComponent
   },
-
-
 ];
 
 @NgModule({
