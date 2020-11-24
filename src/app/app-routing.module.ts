@@ -30,6 +30,7 @@ import { JobConsideringResolver } from './pages/jobs/vacancies/view/resolver/job
 import { JobShortlistResolver } from './pages/jobs/vacancies/view/resolver/jobshortlist.resolver'
 import { JobWithdrawnResolver } from './pages/jobs/vacancies/view/resolver/jobwithdrawn.resolver'
 import { JobDeclinedResolver } from "./pages/jobs/vacancies/view/resolver/jobdeclined.resolver";
+import { DetailsDataResolver } from './pages/my/details/details/resolver/details.resolver';
 
 import {AgmmapsComponent} from "./pages/debug/agmmaps/agmmaps.component";
 import { ViewProfileComponent } from './pages/user/profile/view/view.component';
@@ -41,6 +42,10 @@ import { EditProfileComponent } from './pages/user/profile/edit/edit.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { SettingsComponent } from './pages/user/settings/settings.component';
 import { CreateComponent as CreateProfileComponent } from './pages/user/profile/create/create.component';
+import { PrivateProfileComponentComponent } from './pages/profile/private-profile-component/private-profile-component.component'
+import { PrivateProfileResolver } from './pages/profile/resolvers/private.profile.resolver'
+import { DetailsComponent } from './pages/my/details/details/details.component'
+import { EditDetailsComponent } from './pages/my/details/edit-details/edit-details.component'
 
 const routes: Routes = [
   {
@@ -120,6 +125,16 @@ const routes: Routes = [
         component: CommunicationsInboxComponent
       },
       //user
+      {
+        path: 'my/details',
+        component: DetailsComponent,
+        resolve: { detailsData: DetailsDataResolver },
+        loadChildren: () => import('./pages/my/details/details/details.module').then(m => m.DetailsModule)
+      },
+      {
+        path: 'my/details/edit',
+        component: EditDetailsComponent
+      },
       {
         path: 'user/profile/view',
         component: ViewProfileComponent

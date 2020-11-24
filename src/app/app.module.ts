@@ -15,10 +15,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { ImageCropperModule } from 'ngx-image-cropper'
 import { NgxSocialShareModule } from 'ngx-social-share';
+import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input'
 import { TagInputModule } from 'ngx-chips';
 import { AgmCoreModule } from '@agm/core';
 
+import {environment} from "../environments/environment";
 
 // Bootstrap imports
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -52,6 +54,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ContextMenuModule } from 'ngx-contextmenu';
+import { MatTabsModule } from '@angular/material/tabs'
 
 //Our Generations
 import { AppRoutingModule } from './app-routing.module';
@@ -71,6 +74,9 @@ import { VerifyComponent } from './auth/verify/verify.component';
 import { ChangepasswordComponent } from './auth/changepassword/changepassword.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SearchComponent } from './pages/people/search/search.component';
+
+import { DetailsComponent } from './pages/my/details/details/details.component';
+import { EditDetailsComponent } from './pages/my/details/edit-details/edit-details.component';
 
 //Utilities Modules/Component
 import { SpinnerComponent } from './utilities/spinner/spinner.component';
@@ -100,8 +106,29 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { SettingsModule } from './pages/user/settings/settings.module';
 import { CreateComponent as CreateProfileComponent } from './pages/user/profile/create/create.component';
 
+//profile
+import { PrivateProfileComponentComponent } from './pages/profile/private-profile-component/private-profile-component.component';
+import { DetailsPrivateProfileComponentComponent } from './pages/profile/components/details-private-profile-component/details-private-profile-component.component';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
+};
+
+const cookieConfig:NgcCookieConsentConfig = {
+  cookie: {
+    domain: environment.domain // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+  },
+  palette: {
+    popup: {
+      background: '#000',
+    },
+    button: {
+      background: '#32c787'
+    }
+  },
+  theme: 'classic',
+  type: 'opt-out',
+  position: "bottom-right"
 };
 
 @NgModule({
@@ -137,7 +164,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditMentorComponent,
     EditProfileComponent,
     TasksComponent,
-    CreateProfileComponent
+    CreateProfileComponent,
+    PrivateProfileComponentComponent,
+    DetailsPrivateProfileComponentComponent,
+    DetailsComponent,
+    EditDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -200,7 +231,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgxSocialShareModule,
     CrystalLightboxModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    NgcCookieConsentModule.forRoot(cookieConfig),
     DragDropModule,
+    TabsModule.forRoot(),
     NgxIntlTelInputModule,
     StoreModule.forRoot({
       profile: reducer

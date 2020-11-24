@@ -3,6 +3,6 @@ export const environment = {
   name: 'Staging',
   theme: 'orange',
   initial_page: '/blog/news',
-  // api_path: 'https://stagingapi.fllair.com/',
-  // domain: 'staging.fllair.com'
+  api_path: 'https://stagingapi.fllair.com/',
+  domain: 'staging.fllair.com'
 };

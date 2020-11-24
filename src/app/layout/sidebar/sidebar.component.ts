@@ -42,6 +42,14 @@ export class SidebarComponent implements OnInit {
         },
       ],
     },
+    {
+      title: "My Profile",
+      icon: "user",
+      visibility: "inactive",
+      sub: [
+        { title: "Details", icon: "info", route: "/my/details" },
+      ],
+    },
     // {
     //   title: "Activity",
     //   icon: "briefcase",
@@ -79,12 +87,12 @@ export class SidebarComponent implements OnInit {
     //   class: "disabled",
     //   promote: true,
     // },
-    {
-      title: 'Debug', icon: 'bug', visibility: 'inactive',
-      sub: [
-        {title: "AGMMaps", icon: "map", route: "/debug/agmmaps"},
-      ],
-    },
+    // {
+    //   title: 'Debug', icon: 'bug', visibility: 'inactive',
+    //   sub: [
+    //     {title: "AGMMaps", icon: "map", route: "/debug/agmmaps"},
+    //   ],
+    // },
   ];
 
   // Toggle sub menu

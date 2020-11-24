@@ -37,28 +37,6 @@ export class ProfileService {
             ).catch(err => { return err })
         }
     }
-
-    public createProfile(data: any, _displayPicture) {
-        console.log(data.value.jobTitle);
-        return this.httpClient.post(environment.api_path + this.API_VERSION + 'employer-profile', {
-            firstName: data.value.firstName,
-            lastName: data.value.lastName,
-            aboutMe: data.value.aboutMe,
-            displayPicture: _displayPicture,
-            jobTitle: data.value.jobTitle,
-            videoUrl: data.value.videoUrl,
-            socialLinks: {
-                facebook: data.value.facebook,
-                twitter: data.value.twitter,
-                linkedin: data.value.linkedin,
-                instagram: data.value.instagram
-            },
-            location: {
-                state: data.value.state,
-                country: data.value.country,
-            }
-        });
-    }
     
     mapGroup(user) {
         this.detailsForm = new FormGroup({
@@ -82,6 +60,28 @@ export class ProfileService {
         });
     }
 
+    public createProfile(data: any, _displayPicture) {
+        console.log(data.value.jobTitle);
+        return this.httpClient.post(environment.api_path + this.API_VERSION + 'employer-profile', {
+            firstName: data.value.firstName,
+            lastName: data.value.lastName,
+            aboutMe: data.value.aboutMe,
+            displayPicture: _displayPicture,
+            jobTitle: data.value.jobTitle,
+            videoUrl: data.value.videoUrl,
+            socialLinks: {
+                facebook: data.value.facebook,
+                twitter: data.value.twitter,
+                linkedin: data.value.linkedin,
+                instagram: data.value.instagram
+            },
+            location: {
+                state: data.value.state,
+                country: data.value.country,
+            }
+        });
+    }
+
     public getProfile() {
         console.log("getProfile");
         return this.httpClient.get(environment.api_path + this.API_VERSION + 'employer-profile')
@@ -89,5 +89,65 @@ export class ProfileService {
 
     public getProfileForDetails() {
         return this.httpClient.get(environment.api_path + this.API_VERSION + 'employer-profile').toPromise();
+    }
+
+    public editProfileDetails() {
+        //console.log(this.getFormValues);
+        return new Promise((resolve, reject) => {
+            this.httpClient.put(environment.api_path + this.API_VERSION + 'profile', {
+                // _id: this.getFormValues._id,
+                // displayPicture: this.profileImage,
+                // firstName: this.getFormValues.firstName,
+                // lastName: this.getFormValues.lastName,
+                // aboutMe: this.getFormValues.aboutMe,
+                // videoUrl: this.getFormValues.videoUrl,
+                // socialLinks: {
+                //     facebook: this.getFormValues.socialLinks.facebook,
+                //     twitter: this.getFormValues.socialLinks.twitter,
+                //     linkedin: this.getFormValues.socialLinks.linkedin,
+                //     instagram: this.getFormValues.socialLinks.instagram
+                // },
+                // jobTitle: this.getFormValues.jobTitle,
+                // location: {
+                //     state: this.getFormValues.location.state,
+                //     country: this.getFormValues.location.country
+                // }
+            })
+            .toPromise()
+            .then((result: any) => {
+                this.store.dispatch(new ProfileActions.SetProfile(result.model))
+                this.toastSrv.success(result.message)
+                resolve()
+            })
+            .catch(err => {
+                this.toastSrv.error(err.error.message)
+                reject()
+            })
+        })
+         
+    }
+
+    public editProfile(formData: FormGroup, data: any) {
+        const { _id, user, metadata, displayPicture } = data
+        return this.httpClient.put(environment.api_path + this.API_VERSION + 'profile', {
+            _id,
+            user,
+            metadata,
+            displayPicture,
+            firstName: formData.value.firstName,
+            lastName: formData.value.lastName,
+            aboutMe: formData.value.aboutMe,
+            videoUrl: formData.value.videoUrl,
+            socialLinks: {
+                facebook: formData.value.facebook,
+                twitter: formData.value.twitter,
+                linkedin: formData.value.linkedin,
+                instagram: formData.value.instagram
+            }
+        })
+    }
+
+    public getPrivateProfile(username: string, code: string) {
+        return this.httpClient.get(environment.api_path + this.API_VERSION + `profile/${username}/private?code=${code}`)
     }
 }
