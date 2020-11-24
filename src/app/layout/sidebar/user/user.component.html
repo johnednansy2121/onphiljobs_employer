@@ -1,6 +1,6 @@
 <div class="user">
   <div class="user__info" (click)="userMenu = !userMenu" [class.active]="userMenu">
-    <img class="user__img" src="./assets/demo/img/profile-pics/8.jpg" alt="">
+    <img class="user__img" [src]="(profile | async)?.displayPicture" alt="">
     <div class="row no-gutters row__actions">
       <div class="row no-gutters col-lg-12">
         <div class="user__name">{{(profile | async )?.firstName}} {{(profile | async )?.lastName}}</div>

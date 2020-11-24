@@ -251,7 +251,7 @@ export class NewComponent implements OnInit {
         isFeatured: [true],
       }),
       status: ['DRAFT', Validators.required],
-      client: ['', Validators.required],
+      //client: ['', Validators.required],
     });
     this.addRow()
   }
@@ -269,15 +269,15 @@ export class NewComponent implements OnInit {
     return control;
   }
   addJob() {
-    this.setClientId();
+    //this.setClientId();
     this.spinnerSrv.show('Adding Vacancy');
     const jobData = this.jobForm.value;
     console.log(this.jobForm)
     this.jobsService.addJob(jobData).then( (res)=> {
       this.router.navigateByUrl('/vacancies')
     }).finally(()=> {
-      const clientId = this.clients.findIndex(x => x._id === this.jobForm.value.client)
-      this.jobForm.controls['client'].setValue(this.clients[clientId].name);
+      //const clientId = this.clients.findIndex(x => x._id === this.jobForm.value.client)
+      //this.jobForm.controls['client'].setValue(this.clients[clientId].name);
       this.spinnerSrv.hide();
     }).catch((err)=> {
       console.log(err);

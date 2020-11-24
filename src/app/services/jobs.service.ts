@@ -51,7 +51,7 @@ export class JobsService {
 
   public addJob(data) {
     return new Promise((resolve, reject) => {
-        this.httpClient.post(environment.api_path + this.API_VERSION + 'job', data)
+        this.httpClient.post(environment.api_path + this.API_VERSION + 'jobs', data)
         .toPromise()
         .then((result: any) => {
             const res =result
@@ -85,17 +85,17 @@ export class JobsService {
     .set('$pageSize', searchQuery.pageSize)
     .set('$orderBy', searchQuery.orderBy);
     console.log(params)
-    return this.httpClient.get(environment.api_path + this.API_VERSION + 'job',{params}).toPromise()
+    return this.httpClient.get(environment.api_path + this.API_VERSION + 'jobs',{params}).toPromise()
   }
 
   public getJobById(id) {
-    return this.httpClient.get(environment.api_path + this.API_VERSION + 'job/' + id).toPromise()
+    return this.httpClient.get(environment.api_path + this.API_VERSION + 'jobs/' + id).toPromise()
   }
 
 
   public updateJob(data) {
     return new Promise((resolve, reject) => {
-        this.httpClient.put(environment.api_path + this.API_VERSION + 'job', data)
+        this.httpClient.put(environment.api_path + this.API_VERSION + 'jobs', data)
         .toPromise()
         .then((result: any) => {
             const res =result
@@ -111,7 +111,7 @@ export class JobsService {
 
   public publishJob(_id: any) {
     return new Promise((resolve, reject) => {
-        this.httpClient.put(environment.api_path + this.API_VERSION + 'job/' + _id.id + '/publish', _id)
+        this.httpClient.put(environment.api_path + this.API_VERSION + 'jobs/' + _id.id + '/publish', _id)
         .toPromise()
         .then((result: any) => {
             const res =result
@@ -126,7 +126,7 @@ export class JobsService {
   }
   public draftJob(_id: any) {
     return new Promise((resolve, reject) => {
-      this.httpClient.put(environment.api_path + this.API_VERSION + 'job/' + _id.id + '/draft', _id)
+      this.httpClient.put(environment.api_path + this.API_VERSION + 'jobs/' + _id.id + '/draft', _id)
         .toPromise()
         .then((result: any) => {
             const res =result
@@ -142,7 +142,7 @@ export class JobsService {
 
   public unlistJob(_id: any) {
     return new Promise((resolve, reject) => {
-      this.httpClient.put(environment.api_path + this.API_VERSION + 'job/' + _id.id + '/unlist', _id)
+      this.httpClient.put(environment.api_path + this.API_VERSION + 'jobs/' + _id.id + '/unlist', _id)
         .toPromise()
         .then((result: any) => {
             const res =result
@@ -160,42 +160,42 @@ export class JobsService {
     const params = new HttpParams()
     .set('id', id)
     console.log(params)
-    return this.httpClient.get(environment.api_path + this.API_VERSION + 'job/' + id + '/applicant/applied', {params}).toPromise()
+    return this.httpClient.get(environment.api_path + this.API_VERSION + 'jobs/' + id + '/applicant/applied', {params}).toPromise()
   }
 
   public getAllApplicants(id: any) {
     const params = new HttpParams()
     .set('id', id)
     console.log(params)
-    return this.httpClient.get(environment.api_path + this.API_VERSION + 'job/' + id + '/applicant/all', {params}).toPromise()
+    return this.httpClient.get(environment.api_path + this.API_VERSION + 'jobs/' + id + '/applicant/all', {params}).toPromise()
   }
 
   public getWithdrawnApplicants(id: any) {
     const params = new HttpParams()
     .set('id', id)
     console.log(params)
-    return this.httpClient.get(environment.api_path + this.API_VERSION + 'job/' + id + '/applicant/withdrawn', {params}).toPromise()
+    return this.httpClient.get(environment.api_path + this.API_VERSION + 'jobs/' + id + '/applicant/withdrawn', {params}).toPromise()
   }
 
   public getConsideringApplicants(id: any) {
     const params = new HttpParams()
     .set('id', id)
     console.log(params)
-    return this.httpClient.get(environment.api_path + this.API_VERSION + 'job/' + id + '/applicant/considering', {params}).toPromise()
+    return this.httpClient.get(environment.api_path + this.API_VERSION + 'jobs/' + id + '/applicant/considering', {params}).toPromise()
   }
 
   public getShortlistApplicants(id: any) {
     const params = new HttpParams()
       .set('id', id)
     console.log(params)
-    return this.httpClient.get(environment.api_path + this.API_VERSION + 'job/' + id + '/applicant/shortlist', {params}).toPromise()
+    return this.httpClient.get(environment.api_path + this.API_VERSION + 'jobs/' + id + '/applicant/shortlist', {params}).toPromise()
   }
 
   public getDeclinedApplicants(id: any) {
     const params = new HttpParams()
       .set('id', id)
     console.log(params)
-    return this.httpClient.get(environment.api_path + this.API_VERSION + 'job/' + id + '/applicant/declined', {params}).toPromise()
+    return this.httpClient.get(environment.api_path + this.API_VERSION + 'jobs/' + id + '/applicant/declined', {params}).toPromise()
   }
 
 

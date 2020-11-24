@@ -30,7 +30,7 @@ export class HasProfileGuard implements CanActivate {
                         resolve(true)
                     }
                     else
-                    resolve(this.router.parseUrl('/user/profile/create')) // ITO MAIN ISSUE - Fixed, don't just copy paste items make sure to know it also, if not debug them until you know it.
+                    resolve(this.router.parseUrl('/user/profile/create')) ;
                 })
                 .catch(err => {
                     resolve(this.router.parseUrl('/auth/login'))

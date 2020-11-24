@@ -28,7 +28,6 @@ export class ProfileService {
         } else {
             return this.getProfileForDetails().then(
                 (data: any) => {
-                    console.log(data);
                     const user = { ...data.model }
                     this.mapGroup(user);
                     this.profile = data.model;
@@ -83,7 +82,6 @@ export class ProfileService {
     }
 
     public getProfile() {
-        console.log("getProfile");
         return this.httpClient.get(environment.api_path + this.API_VERSION + 'employer-profile')
     }
 
@@ -91,27 +89,34 @@ export class ProfileService {
         return this.httpClient.get(environment.api_path + this.API_VERSION + 'employer-profile').toPromise();
     }
 
+    public getUpdatedStateProfileDetails() {
+        this.httpClient.get(environment.api_path + this.API_VERSION + 'employer-profile').toPromise()
+            .then((result: any) => {
+                this.profile = result.model
+            })
+    }
+
     public editProfileDetails() {
-        //console.log(this.getFormValues);
+        console.log(this.getFormValues);
         return new Promise((resolve, reject) => {
-            this.httpClient.put(environment.api_path + this.API_VERSION + 'profile', {
-                // _id: this.getFormValues._id,
-                // displayPicture: this.profileImage,
-                // firstName: this.getFormValues.firstName,
-                // lastName: this.getFormValues.lastName,
-                // aboutMe: this.getFormValues.aboutMe,
-                // videoUrl: this.getFormValues.videoUrl,
-                // socialLinks: {
-                //     facebook: this.getFormValues.socialLinks.facebook,
-                //     twitter: this.getFormValues.socialLinks.twitter,
-                //     linkedin: this.getFormValues.socialLinks.linkedin,
-                //     instagram: this.getFormValues.socialLinks.instagram
-                // },
-                // jobTitle: this.getFormValues.jobTitle,
-                // location: {
-                //     state: this.getFormValues.location.state,
-                //     country: this.getFormValues.location.country
-                // }
+            this.httpClient.put(environment.api_path + this.API_VERSION + 'employer-profile', {
+                _id: this.getFormValues._id,
+                displayPicture: this.profileImage,
+                firstName: this.getFormValues.firstName,
+                lastName: this.getFormValues.lastName,
+                aboutMe: this.getFormValues.aboutMe,
+                videoUrl: this.getFormValues.videoUrl,
+                socialLinks: {
+                    facebook: this.getFormValues.socialLinks.facebook,
+                    twitter: this.getFormValues.socialLinks.twitter,
+                    linkedin: this.getFormValues.socialLinks.linkedin,
+                    instagram: this.getFormValues.socialLinks.instagram
+                },
+                jobTitle: this.getFormValues.jobTitle,
+                location: {
+                    state: this.getFormValues.location.state,
+                    country: this.getFormValues.location.country
+                }
             })
             .toPromise()
             .then((result: any) => {
@@ -129,7 +134,7 @@ export class ProfileService {
 
     public editProfile(formData: FormGroup, data: any) {
         const { _id, user, metadata, displayPicture } = data
-        return this.httpClient.put(environment.api_path + this.API_VERSION + 'profile', {
+        return this.httpClient.put(environment.api_path + this.API_VERSION + 'employer-profile', {
             _id,
             user,
             metadata,
@@ -147,7 +152,45 @@ export class ProfileService {
         })
     }
 
+    public getProfileByUsername(username: string) {
+        return this.httpClient.get(environment.api_path + this.API_VERSION + `employer-profile/${username}`).toPromise()
+    }
+
+    get getFormValues() {
+        return this.detailsForm.value;
+    }
+
+    public cancelDetailChanges() {
+        return this.getProfileForDetails().then(
+            (data: any) => {
+                const user = { ...data.model }
+                this.mapGroup(user);
+            }
+        ).catch(err => { return err })
+    }
+
+
+    public changePassword(data: any) {
+        console.log(data);
+        return new Promise((resolve, reject) => {
+         this.httpClient.post(environment.api_path + this.API_VERSION + 'changepassword', {
+            oldPassword: data.value.oldPassword,
+            newPassword: data.value.newPassword,
+            confirmPassword: data.value.confirmPassword
+         })
+             .toPromise()
+             .then((result: any) => {
+                 this.toastSrv.success(result.message)
+                 resolve()
+             })
+             .catch(err => {
+                 this.toastSrv.error(err.error.message)
+                 reject()
+             })
+            })
+    }
+
     public getPrivateProfile(username: string, code: string) {
-        return this.httpClient.get(environment.api_path + this.API_VERSION + `profile/${username}/private?code=${code}`)
+        return this.httpClient.get(environment.api_path + this.API_VERSION + `employer-profile/${username}/private?code=${code}`)
     }
 }
